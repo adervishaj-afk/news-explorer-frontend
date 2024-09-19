@@ -1,9 +1,5 @@
 .page {
   background-color: white;
-  display: flex;
-  justify-content: center;
-  /* grid-template-rows: repeat(auto-fit, 325px); */
-  grid-gap: 20px 20px;
   padding: 10;
 }
 
@@ -15,4 +11,6 @@
 
 .page__style {
   background-image: url("../../assets/georgia-de-lotz-main-background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }

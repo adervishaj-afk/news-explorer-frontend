@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Main.css";
-import About from "../About/About";
-import Navigation from "../Navigation/Navigation";
+import SearchForm from "../SearchForm/SearchForm";
 
-const Main = () => {
+const Main = ({ handleSearch}) => {
   return (
     <div className="main">
       <div className="main__content">
@@ -12,15 +11,7 @@ const Main = () => {
           Find the latest news on any topic and save them in your personal
           account.
         </p>
-        {/* <Navigation /> */}
-        <div className="main__search-container">
-          <input
-            type="text"
-            className="main__search-input"
-            placeholder="Enter topic"
-          />
-          <button className="main__search-button">Search</button>
-        </div>
+        <SearchForm handleSearch={handleSearch} />
       </div>
     </div>
   );
