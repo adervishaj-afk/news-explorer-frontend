@@ -17,7 +17,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false); // Track form submission
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSignin = () => {
     setActiveModal("sign-in");
@@ -60,11 +60,10 @@ function App() {
 
     setIsLoading(true);
     setError(null);
-    setIsSubmitted(true); // Mark as submitted to conditionally render Results
-
+    setIsSubmitted(true);
     try {
       const news = await getNews(searchQuery);
-      setArticles(news); // Set the articles returned from the API
+      setArticles(news);
       if (news.length === 0) {
         setError("No articles found for this query.");
       }

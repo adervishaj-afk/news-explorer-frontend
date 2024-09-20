@@ -11,7 +11,7 @@ const SearchForm = ({ handleSearch }) => {
       setError("Please enter a keyword");
     } else {
       setError("");
-      handleSearch(query); // Call the handleSearch function from the parent
+      handleSearch(query); 
     }
   };
 

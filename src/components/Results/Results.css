@@ -4,11 +4,14 @@
   width: 1440px;
   text-align: center;
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  
+}
+
+.results__page-title {
+  margin: 80px auto 64px 104px;
+  font-size: 40px;
 }
 
 .results-image {
@@ -69,10 +72,11 @@
 }
 
 .results-not-found-title {
-font-size: 26px;
-color: black;
+  font-size: 26px;
+  color: black;
 }
 
 .results-not-found-description {
-
+  font-size: 18px;
+  color: #b6bcbf;
 }

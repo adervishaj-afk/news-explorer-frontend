@@ -4,11 +4,12 @@
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
   margin: 20px;
   text-align: left;
+  position: relative;
 }
 
 /* Image styling */
@@ -45,4 +46,20 @@
   color: #999;
   margin-top: 5px;
   font-weight: bold;
+}
+
+.news-card__bookmark {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  left: 85%;
+  top: 5%;
+  background-image: url("../../assets/bookmark.svg");
+  border: none;
+  border-radius: 10px;
+}
+
+.news-card__bookmark:hover {
+  cursor: pointer;
+  background-image: url("../../assets/active-bookmark.svg");
 }

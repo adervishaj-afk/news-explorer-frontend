@@ -52,6 +52,7 @@ const Results = ({ isLoading, error, articles }) => {
 
   return (
     <div className="news-card-list">
+      <div className="results__page-title">Search Results</div>
       <div className="cards">
         {articles.slice(0, visibleArticles).map((article, index) => (
           <NewsCard key={index} article={article} />

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewCard.css";
 
 const NewsCard = ({ article }) => {
+  const [isSaved, setIsSaved] = useState(false);
+
   return (
     <div className="news-card">
       <img
@@ -20,6 +22,7 @@ const NewsCard = ({ article }) => {
             : "Unknown Date"}
         </p>
       </div>
+      <button className="news-card__bookmark"></button>
     </div>
   );
 };
