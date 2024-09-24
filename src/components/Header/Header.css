@@ -106,13 +106,12 @@
   }
 
   .header__button-signin {
-    max-width: 152px;
+    max-width: 170px;
     width: 100%;
     padding: 8px 20px;
     margin: 19px 40px 13px 0;
     font-size: 18px;
     color: white;
-    border: none;
     border-radius: 20px;
   }
 }
