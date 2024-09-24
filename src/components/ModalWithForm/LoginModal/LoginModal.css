@@ -2,6 +2,8 @@
   width: auto;
   border: none;
   color: #2f71e5;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 
 .signin-input {
@@ -28,6 +30,8 @@
   margin-top: 20px;
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 500;
 }
 
 .signin-button:hover {
@@ -46,6 +50,8 @@
   border: none;
   background: transparent;
   margin-top: 16px;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 
 .login__signup_text {
@@ -104,32 +110,27 @@
 }
 
 @media (max-width: 320px) {
-
-  
-  
   .signin-label {
     display: none;
     visibility: hidden;
-    
   }
-  
+
   .signin-input {
     display: none;
-   
   }
-  
+
   .signin-button {
     display: none;
   }
 
-  .signin-button:hover{
+  .signin-button:hover {
     display: none;
   }
 
   .action-buttons {
-   display: none;
+    display: none;
   }
-  
+
   .login__signup {
     display: none;
   }

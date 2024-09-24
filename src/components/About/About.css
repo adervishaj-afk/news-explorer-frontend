@@ -1,7 +1,7 @@
 .about {
   display: flex;
   align-items: center;
-  justify-content:baseline;
+  justify-content: baseline;
   padding: 0;
   position: relative;
 }
@@ -36,14 +36,17 @@
   font-size: 40px;
   font-weight: bold;
   margin: 0 0 24px;
+  font-weight: 400;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 .about__description {
   font-size: 18px;
   line-height: 1.5;
   margin-bottom: 15px;
-  color: #1A1B22;
-
+  color: #1a1b22;
+  font-weight: 400;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -92,6 +95,4 @@
 }
 
 @media (max-width: 320px) {
-
-
 }

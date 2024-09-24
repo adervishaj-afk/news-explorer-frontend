@@ -13,6 +13,7 @@
   background-image: url("../../assets/georgia-de-lotz-main-background.svg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 
 @media  (max-width: 1440px) {
@@ -30,6 +31,6 @@
 @media (max-width: 320px) {
 
   .page__style {
-    background-size:cover;
+    background-size:contain;
   }
 }

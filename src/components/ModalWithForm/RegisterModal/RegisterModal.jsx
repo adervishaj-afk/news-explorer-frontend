@@ -30,7 +30,7 @@ const RegisterModal = ({
 
   return (
     <ModalWithForm
-      title="Sign In"
+      title="Sign Up"
       buttonText="Sign in"
       isOpen={isOpen}
       onClose={closeActiveModal}

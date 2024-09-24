@@ -108,6 +108,8 @@
     width: 100%;
     position: static;
     /* display: none; */
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-weight: 500;
   }
 
 }
