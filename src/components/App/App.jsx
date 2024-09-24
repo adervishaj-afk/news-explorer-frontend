@@ -10,6 +10,7 @@ import Footer from "../Footer/Footer";
 import LoginModal from "../ModalWithForm/LoginModal/LoginModal";
 import RegisterModal from "../ModalWithForm/RegisterModal/RegisterModal";
 import { getNews } from "../../utils/ThirdPartyApi";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -114,6 +115,14 @@ function App() {
           <RegisterModal
             closeActiveModal={closeActiveModal}
             isOpen={activeModal === "sign-up"}
+            handleSignin={handleSignin}
+            handleOutsideClick={handleOutsideClick}
+          />
+        )}
+        {activeModal === "modal_opened" && (
+          <ModalWithForm
+            closeActiveModal={closeActiveModal}
+            isOpen={activeModal === "modal_opened"}
             handleSignin={handleSignin}
             handleOutsideClick={handleOutsideClick}
           />

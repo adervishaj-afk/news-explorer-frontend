@@ -14,3 +14,22 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+@media  (max-width: 1440px) {
+  .page__style {
+    background-size: contain;
+  }
+}
+
+@media  (max-width: 768px) {
+  .page__style {
+    background-size:auto;
+  }
+}
+
+@media (max-width: 320px) {
+
+  .page__style {
+    background-size:cover;
+  }
+}

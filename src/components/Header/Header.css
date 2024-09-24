@@ -62,3 +62,115 @@
   cursor: pointer;
   opacity: 0.6;
 }
+
+.header__menu {
+  display: none;
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .header__logo {
+    font-size: 20px;
+    font-weight: bold;
+    width: auto;
+    color: white;
+    margin: 20px 0 20px 40px;
+    padding: 0 5px 0;
+    max-width: 200px;
+  }
+
+  .header__nav {
+    display: flex;
+    gap: 42px;
+    padding: 0 10px 0;
+  }
+
+  .header__button-home {
+    font-size: 16px;
+    background-color: transparent;
+    padding: 0;
+    padding-bottom: 30px;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 2px solid white;
+    margin: 30px 0 0 250px;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .header__button-signin {
+    max-width: 152px;
+    width: 100%;
+    padding: 8px 20px;
+    margin: 19px 40px 13px 0;
+    font-size: 18px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+  }
+
+
+}
+
+/* instead of 320 try 768 */
+@media (max-width: 320px) {
+  /* make menu icon button visible */
+  /* make header__nav invisible */
+
+  .header__logo {
+    font-size: 16px;
+    font-weight: bold;
+    width: auto;
+    color: white;
+    max-width: 117px;
+    width: 100%;
+    margin: 16px auto 16px 16px;
+  }
+
+  .header__menu {
+    visibility: visible;
+    display: block;
+    background-image: url("../../assets/menu.svg");
+    border: none;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    margin: 0 16px 0 0;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__button-home {
+    visibility: hidden;
+    display: none;
+  }
+
+  .header__button-signin {
+    visibility: hidden;
+    margin: 0;
+    height: 24px;
+    width: 24px;
+    padding: 0;
+    display: none;
+  }
+
+  /* .header__menu {
+    display: block; /* Show the hamburger menu on small screens */
+  /* } */ */
+
+  .header__nav--open {
+    /* display: flex; Show the navigation when the class is toggled */
+    background-color: #1A1B22;
+    width: 320px;
+    height: 230px;
+  }
+
+
+  .header--menu-open .header__menu-icon {
+    background-color: #fff; /* Adjust icon color when open */
+  }
+}

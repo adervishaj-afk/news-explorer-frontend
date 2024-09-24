@@ -7,7 +7,7 @@ const About = () => {
       <div className="about__image-container">
         <img
           // src="../../assets/barca-wallpaper.jpg"
-          alt="About the author"
+          alt="About"
           className="about__image"
         />
       </div>

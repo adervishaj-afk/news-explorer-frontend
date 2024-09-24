@@ -27,7 +27,7 @@ export const getNews = async (query) => {
       urlToImage: article.urlToImage,
     }));
 
-    return articles; // Return the formatted articles
+    return articles;
   } catch (error) {
     throw error;
   }
@@ -44,5 +44,5 @@ const getFormattedDate = (daysAgo) => {
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const options = { year: "numeric", month: "long", day: "numeric" };
-  return date.toLocaleDateString(undefined, options); // E.g., "September 16, 2023"
+  return date.toLocaleDateString(undefined, options);
 };

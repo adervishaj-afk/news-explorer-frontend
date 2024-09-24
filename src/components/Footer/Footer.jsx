@@ -7,15 +7,21 @@ const Footer = () => {
       <p className="footer__text">© 2024 Supersite, Powered by News API</p>
       <div className="footer__social">
         <nav className="footer__nav">
-          <a href="/" className="footer__link">
+        <a href="/" className="footer__link">
             Home
           </a>
-          <a href="/" className="footer__link">
+          <a href="https://tripleten.com/" target="_blank" rel="noopener noreferrer" className="footer__link">
             TripleTen
           </a>
         </nav>
-        <img className="footer__github-icon"></img>
-        <img className="footer__fb-icon"></img>
+        <div className="footer__media">
+        <a href="https://github.com" target="_blank">
+            <img className="footer__github-icon" alt="GitHub" />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <img className="footer__fb-icon" alt="Facebook" />
+          </a>
+        </div>
       </div>
     </footer>
   );

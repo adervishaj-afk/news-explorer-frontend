@@ -59,15 +59,11 @@
   opacity: 0.8;
 }
 
-@media (max-width: 768px) {
-  .modal {
-    max-width: 320px;
-    width: 90%;
-    padding: 20px;
-    margin: 0 auto;
-    text-align: left;
-  }
+.mobile__signin {
+  display: none;
+}
 
+@media (max-width: 768px) {
   .signin-label {
     font-size: 0.9rem;
     margin-bottom: 5px;
@@ -101,5 +97,44 @@
     color: #007bff;
     font-size: 0.9rem;
   }
+
+  .mobile__signin {
+    display: none;
+  }
 }
 
+@media (max-width: 320px) {
+
+  
+  
+  .signin-label {
+    display: none;
+    visibility: hidden;
+    
+  }
+  
+  .signin-input {
+    display: none;
+   
+  }
+  
+  .signin-button {
+    display: none;
+  }
+
+  .signin-button:hover{
+    display: none;
+  }
+
+  .action-buttons {
+   display: none;
+  }
+  
+  .login__signup {
+    display: none;
+  }
+
+  .login__signup_text {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import "./ModalWithForm.css";
 
-function ModalWithForm({
+function MobileModalSignin({
   children,
   title,
   onClose,
@@ -40,4 +40,4 @@ function ModalWithForm({
   );
 }
 
-export default ModalWithForm;
+export default MobileModalSignin;
