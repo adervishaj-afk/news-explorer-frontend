@@ -9,10 +9,10 @@
   justify-content: center;
 }
 
-.results__page-title {
+.results-list__page-title {
   margin: 80px auto 64px 104px;
   font-size: 40px;
-}
+} 
 
 .results-image {
   background-color: white;
@@ -24,13 +24,13 @@
   outline: none;
 }
 
-.news-card-list {
+.results-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.cards {
+.results-list__cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
