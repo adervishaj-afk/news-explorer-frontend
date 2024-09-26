@@ -8,15 +8,14 @@ function ModalWithForm({
   isOpen,
   onSubmit,
   handleOutsideClick,
-  handleSignin,
 }) {
 
   return (
     <div
       className={`modal ${isOpen && "modal_opened"}`}
-      onClick={handleOutsideClick}
+      onClick={onClose}
     >
-      <div className="modal__content-form">
+      <div className="modal__content-form" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal__title">{title}</h2>
         <button
           onClick={onClose}

@@ -28,7 +28,7 @@
   position: absolute;
   right: -40px;
   top: -40px;
-  background-image: url("../../assets/external-close.png");
+  background-image: url("../../assets/external-close-opt.png");
   height: 40px;
   width: 40px;
   border: none;
@@ -81,6 +81,11 @@
 }
 
 @media (max-width: 768px) {
+
+  .modal__form-close { 
+    right: 0;
+  }
+  
   .modal__title {
     margin-right: auto;
     margin-top: 28px;
@@ -93,6 +98,7 @@
     max-width: 496px;
     box-sizing: border-box;
     width: 100%;
+    margin: 0 5px 0;
   }
 
   .modal__form {
@@ -132,7 +138,6 @@
     position: absolute;
     left: 90%;
     top: -7%;
-    
   }
 
   .modal__title {

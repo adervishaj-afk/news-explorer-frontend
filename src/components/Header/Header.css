@@ -82,6 +82,10 @@
   display: none;
 }
 
+.header--hidden {
+  display: none;
+}
+
 @media (max-width: 768px) {
 
   .header {
@@ -130,6 +134,10 @@
   }
 
   .mobile__dropdown {
+    display: none;
+  }
+
+  .header--hidden {
     display: none;
   }
 }
@@ -223,7 +231,7 @@
 
   .mobile__dropdown_header_close {
     padding: 0;
-    background-image: url("../../assets/external-close.png");
+    background-image: url("../../assets/external-close-opt.png");
     height: 24px;
     width: 24px;
     border: none;
@@ -267,4 +275,9 @@
     color: white;
     padding: 0 5px 0;
   }
+
+  /* .header--hidden .header__logo,
+.header--hidden .header__menu {
+  display: none;
+} */
 }

@@ -3,17 +3,20 @@ import "./Header.css";
 
 const Header = ({ handleSignIn, isOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleMenuSignIn = () => {
-    setIsMenuOpen(false); 
-    handleSignIn(); 
+    setIsMenuOpen(false);
+    setIsModalOpen(true);
+    handleSignIn();
   };
 
   return (
+    // <header className={`header ${isModalOpen ? 'header--hidden': ''}`}>
     <header className="header">
       <div className="header__logo">NewsExplorer</div>
       <button className="header__menu" onClick={toggleMenu}></button>

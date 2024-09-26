@@ -1,4 +1,4 @@
-* { outline: 1px solid red; }
+/* * { outline: 1px solid red; } */
 
 .page {
   background-color: white;
@@ -12,7 +12,7 @@
 }
 
 .page__style {
-  background-image: url("../../assets/georgia-de-lotz-main-background.svg");
+  background-image: url("../../assets/georgia-de-lotz.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

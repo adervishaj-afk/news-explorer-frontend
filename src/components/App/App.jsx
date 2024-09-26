@@ -19,6 +19,7 @@ function App() {
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSignin = () => {
     setActiveModal("sign-in");
@@ -30,6 +31,10 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -84,6 +89,7 @@ function App() {
               handleSignIn={handleSignin}
               onClose={closeActiveModal}
               isOpen={activeModal === "sign-in"}
+              isModalOpen={isModalOpen}
             />
             <Routes>
               <Route
@@ -121,6 +127,7 @@ function App() {
             isOpen={activeModal === "sign-up"}
             handleSignin={handleSignin}
             handleOutsideClick={handleOutsideClick}
+            isModalOpen={isModalOpen}
           />
         )}
       </div>

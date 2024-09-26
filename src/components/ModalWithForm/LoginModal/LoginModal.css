@@ -75,6 +75,11 @@
     margin-bottom: 5px;
   }
 
+  .signin-button {
+    background-color: #2f71e5;
+    color: white;
+  }
+
   .signin-input {
     width: 100%;
     margin-bottom: 10px;
@@ -116,21 +121,9 @@
   .signin-button {
     display: block;
     background-color: #e6e8eb;
+    color: #B6BCBF;
+
   }
 
-  .signin-button:hover {
-    /* display: none; */
-  }
-
-  .action-buttons {
-    /* display: none; */
-  }
-
-  .login__signup {
-    /* display: none; */
-  }
-
-  .login__signup_text {
-    /* display: none; */
-  }
+  
 }
