@@ -20,6 +20,8 @@
 }
 
 .footer__link {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 400;
   font-size: 16px;
   color: black;
   text-decoration: none;
@@ -76,7 +78,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 480px) {
   .footer {
     padding: 20px;
     display: grid;

@@ -1,4 +1,5 @@
 import "./ModalWithForm.css";
+import React from "react";
 
 function ModalWithForm({
   children,
@@ -9,19 +10,12 @@ function ModalWithForm({
   handleOutsideClick,
   handleSignin,
 }) {
+
   return (
     <div
       className={`modal ${isOpen && "modal_opened"}`}
       onClick={handleOutsideClick}
     >
-      <div className="mobile__signin">
-        <div className="mobile_signin_header">
-          <p className="mobile__signin_header_logo">NewsExplorer</p>
-          <button className="mobile__signin_header_close" onClick={onClose}></button>
-        </div>
-        <p className="mobile__signin-title">Home</p>
-        <button className="mobile__signin-login_button" onClick={handleSignin}>Sign In</button>
-      </div>
       <div className="modal__content-form">
         <h2 className="modal__title">{title}</h2>
         <button

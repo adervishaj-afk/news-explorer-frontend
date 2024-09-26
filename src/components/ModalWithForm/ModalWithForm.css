@@ -99,7 +99,7 @@
     display: flex;
     flex-direction: column;
     max-width: 496px;
-    height: 456;
+    height: auto;
     width: 100%;
     margin-bottom: 36px;
     margin-top: 0;
@@ -119,78 +119,60 @@
   }
 }
 
-@media (max-width: 320px) {
-  .mobile__signin {
-    max-width: 304px;
-    width: 100%;
-    height: auto;
-    background-color: #1a1b22;
-    display: block;
+@media (max-width: 480px) {
+
+  .modal {
+    top: 15%;
+  }
+
+  .modal__form-close {
+    width: 24px;
+    height: 24px;
+    padding: 0;
     position: absolute;
-    left: 2%;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    border-radius: 0 0 10px 10px;
+    left: 90%;
+    top: -7%;
+    
+  }
+
+  .modal__title {
+    margin-right: auto;
+    margin-top: 28px;
+    margin-bottom: 24px;
   }
 
   .modal__content-form {
-     display: none; /*form component - undo */
+    border-radius: 20px;
+    background-color: white;
+    max-width: 480px;
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    height: 560px;
+    position: absolute;
   }
 
-  .mobile_signin_header {
+  .modal__form {
     display: flex;
-    flex-direction: row;
-    padding: 16px;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid grey;
+    flex-direction: column;
+    max-width: 480px;
+    height: 80vh;
+    width: 100%;
+    margin-bottom: 36px;
+    margin-top: 0;
   }
 
-  .mobile__signin_header_close {
-    padding: 0;
-    background-image: url("../../assets/external-close.png");
-    height: 24px;
-    width: 24px;
+  .modal__input {
+    display: block;
     border: none;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 24px;
   }
 
-  .mobile__signin-title {
-    font-size: 18px;
-    color: white;
-    max-width: 280px;
-    line-height: 56px;
-    margin: 16px 16px 22px;
+  .modal__legend {
+    margin-bottom: 12px;
   }
 
-  .mobile__signin-login_button {
-    max-width: 280px;
-    width: 280px;
-    font-size: 18px;
-    border-radius: 25px 25px;
-    border-color: white;
-    background-color: transparent;
-    color: white;
-    padding: 10px 10px;
-    max-height: 60px;
-    margin: 0 auto 24px;
-    transition: opacity 0.5s ease-in-out;
-    opacity: 1;
-  }
-
-  .mobile__signin-login_button:hover {
-    opacity: 0.6;
-    cursor: pointer;
-  }
-
-  .mobile__signin_header_logo {
-    font-size: 16px;
-    width: auto;
-    color: white;
-    padding: 0 5px 0;
-  }
 }

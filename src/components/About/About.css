@@ -49,16 +49,15 @@
   font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 842px) {
   .about {
     flex-direction: row; /* Maintain row direction to keep image and text side-by-side */
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
     padding: 20px; /* Add some padding for spacing */
     max-width: 768px;
   }
-
+ 
   .about__image-container {
     display: flex;
     justify-content: center;
@@ -94,5 +93,52 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 768px) {
+  .about {
+    flex-direction: row; /* Maintain row direction to keep image and text side-by-side */
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Add some padding for spacing */
+    max-width: 768px;
+  }
+ 
+  .about__image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px; /* Add space between the image and text */
+  }
+
+  .about__image {
+    max-width: 232px; /* Constrain the max width to avoid it becoming too large */
+    height: 232px; /* Maintain aspect ratio */
+    margin: 0; /* Reset margins to keep the layout compact */
+    object-fit: cover; /* Ensure the image covers its container nicely */
+    margin: 0;
+  }
+
+  .about__text-container {
+    max-width: 420px; /* Allow it to use the remaining space */
+    width: 100%;
+    text-align: left; /* Align text to the left */
+    padding: 10px; /* Add padding to keep it readable */
+    font-size: 18px;
+  }
+
+  .about__title {
+    font-size: 30px; /* Scale down the title slightly for smaller screens */
+    margin-bottom: 10px; /* Adjust margin for consistency */
+    margin-top: 40px;
+  }
+
+  .about__description {
+    font-size: 18px; /* Adjust font size for readability */
+    line-height: 1.5; /* Maintain a comfortable line height */
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    flex-wrap: wrap;
+  }
 }

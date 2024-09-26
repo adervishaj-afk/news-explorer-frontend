@@ -1,3 +1,5 @@
+* { outline: 1px solid red; }
+
 .page {
   background-color: white;
   padding: 10;
@@ -18,7 +20,7 @@
 
 @media  (max-width: 1440px) {
   .page__style {
-    background-size: contain;
+    background-size: cover;
   }
 }
 
@@ -28,9 +30,9 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 480px) {
 
   .page__style {
-    background-size:contain;
+    background-size: cover;
   }
 }

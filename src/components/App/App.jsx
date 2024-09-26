@@ -14,7 +14,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  const [savedArticles, setSavedArticles] = useState([]);
+  // const [savedArticles, setSavedArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
@@ -80,7 +80,11 @@ function App() {
       <div className="page">
         <div className="page__content">
           <div className="page__style">
-            <Header handleSignIn={handleSignin} />
+            <Header
+              handleSignIn={handleSignin}
+              onClose={closeActiveModal}
+              isOpen={activeModal === "sign-in"}
+            />
             <Routes>
               <Route
                 exact
@@ -115,14 +119,6 @@ function App() {
           <RegisterModal
             closeActiveModal={closeActiveModal}
             isOpen={activeModal === "sign-up"}
-            handleSignin={handleSignin}
-            handleOutsideClick={handleOutsideClick}
-          />
-        )}
-        {activeModal === "modal_opened" && (
-          <ModalWithForm
-            closeActiveModal={closeActiveModal}
-            isOpen={activeModal === "modal_opened"}
             handleSignin={handleSignin}
             handleOutsideClick={handleOutsideClick}
           />
