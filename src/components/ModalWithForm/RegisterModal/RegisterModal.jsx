@@ -3,7 +3,7 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm";
 
 const RegisterModal = ({
-  handleLogin,
+  handleRegistration,  // Pass in the registration function from the parent
   isOpen,
   closeActiveModal,
   handleOutsideClick,
@@ -14,6 +14,8 @@ const RegisterModal = ({
     password: "",
     username: "",
   });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,15 +25,24 @@ const RegisterModal = ({
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleLogin(data);
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      await handleRegistration(data);  // Call the handleRegistration function from props
+      setIsLoading(false);
+    } catch (err) {
+      setErrorMessage('Failed to register. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   return (
     <ModalWithForm
       title="Sign Up"
-      buttonText="Sign in"
+      buttonText="Sign up"
       isOpen={isOpen}
       onClose={closeActiveModal}
       onSubmit={handleSubmit}
@@ -76,10 +87,11 @@ const RegisterModal = ({
         className="signin-input"
         placeholder="Username"
       />
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div>
         <div className="action-buttons">
-          <button className="signin-button" type="submit">
-            Sign up
+          <button className="signin-button" type="submit" disabled={isLoading}>
+            {isLoading ? "Signing up..." : "Sign up"}
           </button>
           <button
             onClick={handleSignin}

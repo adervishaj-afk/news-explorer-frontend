@@ -1,6 +1,10 @@
 const API_KEY = "dd695f0f3720453e9025323b3c051bb8";
 const BASE_URL = "https://newsapi.org/v2"; // Base URL for the News API
 
+export const handleServerResponse = (res) => {
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+};
+
 // Function to fetch news articles based on search query
 export const getNews = async (query) => {
   const endpoint = `${BASE_URL}/everything?q=${encodeURIComponent(
@@ -45,4 +49,25 @@ const formatDate = (dateString) => {
   const date = new Date(dateString);
   const options = { year: "numeric", month: "long", day: "numeric" };
   return date.toLocaleDateString(undefined, options);
+};
+
+const getUserInfo = (token) => {
+  // Send a GET request to /users/me
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      // Specify an authorization header with an appropriately
+      // formatted value.
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(handleServerResponse);
+};
+
+export const api = {
+  getNews,
+  getFormattedDate,
+  formatDate,
+  getUserInfo
 };
