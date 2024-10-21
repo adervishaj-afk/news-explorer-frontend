@@ -110,7 +110,7 @@ function App() {
     // Attach the keywords (from searchQuery) to the article
     article.keywords = searchQuery.split(" "); // Split search query into individual keywords
 
-    console.log("Article with attached keywords:", article.keywords.slice(0,2)); // Log the article with keywords for confirmation
+    // console.log("Article with attached keywords:", article.keywords.slice(0,2)); // Log the article with keywords for confirmation
 
     auth
       .likeArticle(article, token) // Pass the articleId and article object to the API
