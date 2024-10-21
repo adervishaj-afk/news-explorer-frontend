@@ -3,9 +3,16 @@ import NewsCard from "../NewsCard/NewsCard";
 import "./Results.css";
 import Preloader from "../Preloader/Preloader";
 
-const Results = ({ isLoading, error, articles }) => {
-  const [visibleArticles, setVisibleArticles] = useState(3);
-
+const Results = ({
+  isLoading,
+  error,
+  articles,
+  showMoreArticles,
+  visibleArticles,
+  onCardLike,
+  onCardDelete,
+  savedArticles,
+}) => {
   if (isLoading) {
     return (
       <div className="results">
@@ -46,16 +53,18 @@ const Results = ({ isLoading, error, articles }) => {
     );
   }
 
-  const showMoreArticles = () => {
-    setVisibleArticles((prev) => prev + 3); // Show 3 more articles each time
-  };
-
   return (
     <div className="results-list">
       <div className="results-list__page-title">Search Results</div>
       <div className="results-list__cards">
         {articles.slice(0, visibleArticles).map((article, index) => (
-          <NewsCard key={index} article={article} />
+          <NewsCard
+            key={index}
+            article={article}
+            savedArticles={savedArticles}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
+          />
         ))}
       </div>
 

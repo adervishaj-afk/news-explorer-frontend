@@ -13,11 +13,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { getToken, setToken, removeToken } from "../../utils/token";
 import { api } from "../../utils/ThirdPartyApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import {auth} from "../../utils/auth"
+import { auth } from "../../utils/auth";
+import Profile from "../Profile/Profile";
+import { Link, useLocation } from "react-router-dom";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  // const [savedArticles, setSavedArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
@@ -30,15 +31,21 @@ function App() {
     username: "",
     email: "",
   });
+  const [visibleArticles, setVisibleArticles] = useState(3);
+  const [searchQuery, setSearchQuery] = useState("");
+  const showMoreArticles = () => {
+    setVisibleArticles((prev) => prev + 3);
+  };
 
   const navigate = useNavigate();
+
   useEffect(() => {
     const token = getToken();
 
     if (!token) return;
 
     // Validate the token and get user info
-    api
+    auth
       .getUserInfo(token)
       .then((data) => {
         setIsLoggedIn(true);
@@ -78,18 +85,6 @@ function App() {
       .catch(console.error);
   };
 
-  // Handle profile update (like updating user email, etc.)
-  const handleProfileUpdate = ({ name }) => {
-    const token = getToken();
-    api
-      .editProfile({ name, token })
-      .then((data) => {
-        setUserData(data);
-        closeActiveModal();
-      })
-      .catch(console.error);
-  };
-
   // Handle logout
   const handleLogout = () => {
     removeToken();
@@ -97,29 +92,45 @@ function App() {
     navigate("/");
   };
 
+  const generateArticleId = (article) => {
+    return encodeURIComponent(
+      `${article?.title}-${article?.publishedAt}-${article?.sourceName}`
+    );
+  };
+
   // Handle saving (liking) articles
   const handleCardLike = (article) => {
     const token = getToken();
     if (!token) return;
+    // console.log(article);
+    const articleId = generateArticleId(article);
+    article.articleId = articleId;
+    // console.log(article.articleId);
 
-    api
-      .saveArticle({ article, token })
-      .then((savedArticle) => {
-        setSavedArticles([...savedArticles, savedArticle]);
+    // Attach the keywords (from searchQuery) to the article
+    article.keywords = searchQuery.split(" "); // Split search query into individual keywords
+
+    console.log("Article with attached keywords:", article.keywords.slice(0,2)); // Log the article with keywords for confirmation
+
+    auth
+      .likeArticle(article, token) // Pass the articleId and article object to the API
+      .then((likedArticle) => {
+        setSavedArticles([...savedArticles, likedArticle]); // Add saved article to state
       })
       .catch(console.error);
   };
 
-  // Handle deleting (unsaving) articles
-  const handleCardDelete = (articleId) => {
+  const handleCardDelete = (article) => {
     const token = getToken();
     if (!token) return;
 
-    api
-      .deleteArticle(articleId, token)
+    const articleId = article._id;
+
+    auth
+      .dislikeArticle(articleId, token)
       .then(() => {
-        setSavedArticles(
-          savedArticles.filter((article) => article._id !== articleId)
+        setSavedArticles((prevArticles) =>
+          prevArticles.filter((a) => a._id !== articleId)
         );
       })
       .catch(console.error);
@@ -171,8 +182,15 @@ function App() {
     setIsLoading(true);
     setError(null);
     setIsSubmitted(true);
+    setSearchQuery(searchQuery);
+
+    console.log("Search query captured:", searchQuery);
+
     try {
       const news = await getNews(searchQuery);
+
+      console.log("Fetched articles for query:", news); // Log fetched articles to ensure data is coming through
+
       setArticles(news);
       if (news.length === 0) {
         setError("No articles found for this query.");
@@ -196,30 +214,53 @@ function App() {
               isOpen={activeModal === "sign-in"}
               isModalOpen={isModalOpen}
               isLoggedIn={isLoggedIn}
+              handleLogout={handleLogout}
             />
             <Routes>
               <Route
                 exact
                 path="/"
                 element={
-                  <Main
-                    handleSearch={handleSearch}
-                    isSubmitted={isSubmitted}
-                    isLoading={isLoading}
-                    error={error}
-                    articles={articles}
-                  />
+                  <>
+                    <Main
+                      handleSearch={handleSearch}
+                      isSubmitted={isSubmitted}
+                      isLoading={isLoading}
+                      error={error}
+                      articles={articles}
+                    />
+                    {isSubmitted && (
+                      <Results
+                        showMoreArticles={showMoreArticles}
+                        visibleArticles={visibleArticles}
+                        isLoading={isLoading}
+                        error={error}
+                        articles={articles}
+                        onCardLike={handleCardLike}
+                        onCardDelete={handleCardDelete}
+                        savedArticles={savedArticles}
+                        searchQuery={searchQuery}
+                      />
+                    )}
+                    <About />
+                  </>
                 }
               />
               <Route
                 path="/profile"
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Results
-                      articles={savedArticles}
-                      onCardDelete={handleCardDelete}
-                      isLoggedIn={isLoggedIn}
-                    />
+                    {userData._id ? (
+                      <Profile
+                        articles={savedArticles}
+                        onCardDelete={handleCardDelete}
+                        isLoggedIn={isLoggedIn}
+                        userData={userData} // Pass userData to Profile component
+                        savedArticles={savedArticles}
+                      />
+                    ) : (
+                      <div>Loading profile...</div> // Show loading state while fetching userData
+                    )}
                   </ProtectedRoute>
                 }
               />
@@ -231,10 +272,7 @@ function App() {
               />
             </Routes>
           </div>
-          {isSubmitted && (
-            <Results isLoading={isLoading} error={error} articles={articles} />
-          )}
-          <About />
+
           <Footer />
         </div>
         {activeModal === "sign-in" && (

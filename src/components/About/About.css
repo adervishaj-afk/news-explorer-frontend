@@ -4,6 +4,7 @@
   justify-content: baseline;
   padding: 0;
   position: relative;
+  background-color: white;
 }
 
 .about__image-container {
@@ -19,8 +20,8 @@
   height: 464px;
   margin: 80px 56px 80px 104px;
   background-repeat: no-repeat;
-  background-size: contain;
-  object-fit: contain;
+  background-size: cover;
+  object-fit: cover;
   background-image: url("../../assets/image-03.svg");
   border-radius: 50%;
 }

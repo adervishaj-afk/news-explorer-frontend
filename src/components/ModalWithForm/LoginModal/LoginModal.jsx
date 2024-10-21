@@ -10,10 +10,12 @@ const LoginModal = ({
   handleOutsideClick,
 }) => {
   const [data, setData] = useState({
-    username: "",
+    email: "",
     password: "",
-    username: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState(""); // For error handling
+  const [isLoading, setIsLoading] = useState(false); // For loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,9 +25,18 @@ const LoginModal = ({
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleLogin(data);
+    setIsLoading(true); // Set loading state when request is sent
+    setErrorMessage('');
+
+    try {
+      await handleLogin(data);  // Call the handleLogin function from props
+      setIsLoading(false);
+    } catch (err) {
+      setErrorMessage('Failed to sign in. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -41,9 +52,9 @@ const LoginModal = ({
         Email
       </label>
       <input
-        id="username"
+        id="email"
         required
-        name="username"
+        name="email"
         type="text"
         value={data.username}
         onChange={handleChange}

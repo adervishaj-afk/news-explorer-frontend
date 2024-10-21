@@ -15,12 +15,14 @@ export const getNews = async (query) => {
 
   try {
     const response = await fetch(endpoint);
-
     if (!response.ok) {
       throw new Error("Failed to fetch news articles");
     }
 
     const data = await response.json();
+
+    console.log("Fetched articles from API:", data.articles);
+
 
     // Map through the articles to extract the necessary fields
     const articles = data.articles.map((article) => ({
@@ -29,6 +31,7 @@ export const getNews = async (query) => {
       publishedAt: formatDate(article.publishedAt),
       description: article.description,
       urlToImage: article.urlToImage,
+      url: article.url,
     }));
 
     return articles;
@@ -51,23 +54,9 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString(undefined, options);
 };
 
-const getUserInfo = (token) => {
-  // Send a GET request to /users/me
-  return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      // Specify an authorization header with an appropriately
-      // formatted value.
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(handleServerResponse);
-};
 
 export const api = {
   getNews,
   getFormattedDate,
   formatDate,
-  getUserInfo
 };
