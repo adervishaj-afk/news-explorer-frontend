@@ -114,5 +114,4 @@ export const auth = {
   likeArticle,
   deleteArticle,
   getSavedArticles,
-  createArticle,
 };
