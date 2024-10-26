@@ -65,7 +65,7 @@ const Profile = ({
           {/* {userData.name}, you have {savedArticles.length} saved articles */}
         </h2>
         <div className="profile__keyword-search">
-          By keywords: 
+          By keywords:
           {/* <strong>{renderKeywordsSummary()}</strong> */}
         </div>
       </div>
@@ -91,4 +91,3 @@ const Profile = ({
 };
 
 export default Profile;
-

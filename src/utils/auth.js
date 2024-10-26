@@ -43,6 +43,20 @@ const getUserInfo = (token) => {
   }).then(handleServerResponse);
 };
 
+// const likeArticle = (articleId, token) => {
+//   console.log("Sending likeArticle request with token:", token); // Add this for debugging
+//   console.log("Article ID:", articleId); // Add this for debugging
+
+//   return fetch(`${BASE_URL}/article/${articleId}/like`, {
+//     method: "PUT",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`, // This must be the actual JWT token
+//     },
+//   }).then(handleServerResponse);
+// };
+
 // Like (save) an article
 const likeArticle = (article, token) => {
   const articleJson = {
@@ -59,7 +73,7 @@ const likeArticle = (article, token) => {
   const jsonBody = JSON.stringify(articleJson);
 
   return fetch(`${BASE_URL}/article/${article.articleId}/like`, {
-    method: "PUT", // Use PUT method to like the article
+    method: "POST", // Use PUT method to like the article
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -70,10 +84,10 @@ const likeArticle = (article, token) => {
 };
 
 // Dislike (un-save) an article
-const dislikeArticle = (articleId, token) => {
-  console.log("Dislike Article Function Called with ID:", articleId);  
+const deleteArticle = (articleId, token) => {
+  console.log("Delete Article Function Called with ID:", articleId);
 
-  return fetch(`${BASE_URL}/article/${encodeURIComponent(articleId)}/unlike`, {
+  return fetch(`${BASE_URL}/article/${encodeURIComponent(articleId)}/delete`, {
     method: "DELETE", // Use DELETE method to remove the like
     headers: {
       Accept: "application/json",
@@ -87,8 +101,8 @@ const getSavedArticles = (token) => {
   return fetch(`${BASE_URL}/article/saved`, {
     method: "GET",
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   }).then(handleServerResponse);
 };
@@ -98,6 +112,7 @@ export const auth = {
   signin,
   getUserInfo,
   likeArticle,
-  dislikeArticle,
+  deleteArticle,
   getSavedArticles,
+  createArticle,
 };

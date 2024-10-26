@@ -98,6 +98,7 @@ function App() {
     );
   };
 
+  
   // Handle saving (liking) articles
   const handleCardLike = (article) => {
     const token = getToken();
@@ -121,20 +122,25 @@ function App() {
   };
 
   const handleCardDelete = (article) => {
-    const token = getToken();
-    if (!token) return;
+  const token = getToken();
+  if (!token) return;
 
-    const articleId = article._id;
+  const articleId = article._id; // Use MongoDB _id for deletion
 
-    auth
-      .dislikeArticle(articleId, token)
-      .then(() => {
-        setSavedArticles((prevArticles) =>
-          prevArticles.filter((a) => a._id !== articleId)
-        );
-      })
-      .catch(console.error);
-  };
+  // Check if the article exists and then delete it
+  auth
+    .deleteArticle(articleId, token) // API call to delete the article by _id
+    .then(() => {
+      console.log("Article deleted:", articleId);
+      // Remove the article from the savedArticles state
+      setSavedArticles((prevArticles) =>
+        prevArticles.filter((a) => a._id !== articleId)
+      );
+    })
+    .catch((error) => {
+      console.error("Error deleting article:", error);
+    });
+};
 
   const handleSignin = () => {
     setActiveModal("sign-in");
