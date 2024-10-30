@@ -4,6 +4,10 @@ https://github.com/adervishaj-afk/news-explorer-backend
 
 https://github.com/adervishaj-afk/news-explorer-frontend
 
+newsexplore.twilightparadox.com
+www.newsexplore.twilightparadox.com
+api.newsexplore.twilightparadox.com
+
 News Explorer API
 Welcome to the News Explorer API! This project forms the backend for a news aggregation and bookmarking platform, where users can search for news articles, save their favorite ones, and manage their saved articles. The application demonstrates several backend development concepts, including RESTful API development, authentication and authorization, database management, and error handling.
 

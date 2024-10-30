@@ -67,6 +67,7 @@ const likeArticle = (article, token) => {
     publishedAt: article.publishedAt,
     sourceName: article.sourceName,
     keywords: article.keywords || [],
+    url: article.url,
   };
 
   // Step 2: Convert the object to a JSON string

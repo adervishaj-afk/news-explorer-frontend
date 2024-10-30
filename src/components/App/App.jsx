@@ -33,11 +33,34 @@ function App() {
   });
   const [visibleArticles, setVisibleArticles] = useState(3);
   const [searchQuery, setSearchQuery] = useState("");
+  const [uniqueKeywords, setUniqueKeywords] = useState([]);
   const showMoreArticles = () => {
     setVisibleArticles((prev) => prev + 3);
   };
 
   const navigate = useNavigate();
+
+  // Fetch saved articles when the component mounts
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      auth
+        .getSavedArticles(token)
+        .then((articles) => {
+          setSavedArticles(articles); // Set the articles in state
+
+          // Extract all unique keywords from articles
+          const allKeywords = articles.flatMap(
+            (article) => article.keywords || []
+          );
+          const uniqueKeywords = Array.from(new Set(allKeywords));
+          setUniqueKeywords(uniqueKeywords);
+        })
+        .catch((err) => {
+          console.error("Error fetching saved articles:", err);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     const token = getToken();
@@ -98,7 +121,6 @@ function App() {
     );
   };
 
-  
   // Handle saving (liking) articles
   const handleCardLike = (article) => {
     const token = getToken();
@@ -122,25 +144,34 @@ function App() {
   };
 
   const handleCardDelete = (article) => {
-  const token = getToken();
-  if (!token) return;
+    const token = getToken();
+    if (!token) return;
 
-  const articleId = article._id; // Use MongoDB _id for deletion
+    // Find the matching article in savedArticles by comparing URLs
+    const savedArticle = savedArticles.find(
+      (saved) => saved.url === article.url
+    );
 
-  // Check if the article exists and then delete it
-  auth
-    .deleteArticle(articleId, token) // API call to delete the article by _id
-    .then(() => {
-      console.log("Article deleted:", articleId);
-      // Remove the article from the savedArticles state
-      setSavedArticles((prevArticles) =>
-        prevArticles.filter((a) => a._id !== articleId)
-      );
-    })
-    .catch((error) => {
-      console.error("Error deleting article:", error);
-    });
-};
+    if (savedArticle) {
+      const articleId = savedArticle._id; // Use MongoDB _id from savedArticles
+
+      // Call the backend to delete the article by its _id
+      auth
+        .deleteArticle(articleId, token) // API call to delete the article by _id
+        .then(() => {
+          console.log("Article deleted:", articleId);
+          // Remove the article from savedArticles state
+          setSavedArticles((prevArticles) =>
+            prevArticles.filter((a) => a._id !== articleId)
+          );
+        })
+        .catch((error) => {
+          console.error("Error deleting article:", error);
+        });
+    } else {
+      console.log("No matching saved article found for deletion.");
+    }
+  };
 
   const handleSignin = () => {
     setActiveModal("sign-in");

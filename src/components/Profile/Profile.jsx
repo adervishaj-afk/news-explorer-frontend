@@ -11,31 +11,32 @@ const Profile = ({
   onCardLike,
   isLoggedIn,
   onCardDelete,
+  savedArticles
 }) => {
-  const [savedArticles, setSavedArticles] = useState([]);
-  const [uniqueKeywords, setUniqueKeywords] = useState([]);
+  // const [savedArticles, setSavedArticles] = useState([]);
+  // const [uniqueKeywords, setUniqueKeywords] = useState([]);
 
-  // Fetch saved articles when the component mounts
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      auth
-        .getSavedArticles(token)
-        .then((articles) => {
-          setSavedArticles(articles); // Set the articles in state
+  // // Fetch saved articles when the component mounts
+  // useEffect(() => {
+  //   const token = getToken();
+  //   if (token) {
+  //     auth
+  //       .getSavedArticles(token)
+  //       .then((articles) => {
+  //         setSavedArticles(articles); // Set the articles in state
 
-          // Extract all unique keywords from articles
-          const allKeywords = articles.flatMap(
-            (article) => article.keywords || []
-          );
-          const uniqueKeywords = Array.from(new Set(allKeywords));
-          setUniqueKeywords(uniqueKeywords);
-        })
-        .catch((err) => {
-          console.error("Error fetching saved articles:", err);
-        });
-    }
-  }, []);
+  //         // Extract all unique keywords from articles
+  //         const allKeywords = articles.flatMap(
+  //           (article) => article.keywords || []
+  //         );
+  //         const uniqueKeywords = Array.from(new Set(allKeywords));
+  //         setUniqueKeywords(uniqueKeywords);
+  //       })
+  //       .catch((err) => {
+  //         console.error("Error fetching saved articles:", err);
+  //       });
+  //   }
+  // }, []);
 
   // const renderKeywordsSummary = () => {
   //   if (uniqueKeywords.length === 0) {
