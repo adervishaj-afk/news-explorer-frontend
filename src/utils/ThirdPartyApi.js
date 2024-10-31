@@ -1,5 +1,8 @@
 const API_KEY = "dd695f0f3720453e9025323b3c051bb8";
-const BASE_URL = "https://newsapi.org/v2"; // Base URL for the News API
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://nomoreparties.co/news/v2"  // Proxy URL for production
+    : "https://newsapi.org/v2";  // Also using proxy URL for development
 
 export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
@@ -22,7 +25,6 @@ export const getNews = async (query) => {
     const data = await response.json();
 
     console.log("Fetched articles from API:", data.articles);
-
 
     // Map through the articles to extract the necessary fields
     const articles = data.articles.map((article) => ({
@@ -53,7 +55,6 @@ const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return date.toLocaleDateString(undefined, options);
 };
-
 
 export const api = {
   getNews,
