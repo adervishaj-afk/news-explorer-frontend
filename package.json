@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "deploy": "npm run build && scp -r ./dist/* tripletenuser@domainname.example.com:/home/tripletenuser/frontend"
+    "deploy": "npm run build && scp -r ./dist/* adervishaj159@newsexplore.twilightparadox.com:/home/adervishaj159/frontend"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
