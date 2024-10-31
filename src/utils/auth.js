@@ -43,19 +43,6 @@ const getUserInfo = (token) => {
   }).then(handleServerResponse);
 };
 
-// const likeArticle = (articleId, token) => {
-//   console.log("Sending likeArticle request with token:", token); // Add this for debugging
-//   console.log("Article ID:", articleId); // Add this for debugging
-
-//   return fetch(`${BASE_URL}/article/${articleId}/like`, {
-//     method: "PUT",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`, // This must be the actual JWT token
-//     },
-//   }).then(handleServerResponse);
-// };
 
 // Like (save) an article
 const likeArticle = (article, token) => {
