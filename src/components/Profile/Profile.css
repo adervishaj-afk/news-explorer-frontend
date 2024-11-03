@@ -1,0 +1,54 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+}
+
+.profile__label {
+  font-size: 18px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  color: #1a1b2280;
+  padding-left: 117px;
+}
+
+.profile__title {
+  color: #1a1b22;
+  font-weight: 400;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  flex-wrap: wrap;
+  padding-left: 117px;
+}
+
+.profile__keyword-search {
+  margin-left: 117px;
+}
+
+.saved-articles__list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap; /* Ensure items can wrap */
+  gap: 15px; /* Add space between items */
+  padding: 0;
+  justify-content: center;
+}
+
+.saved-articles__item {
+  /* width: auto; */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  margin-bottom: 20px;
+}
+
+/*    POTENTIAL OVERLAP WITH SavedArticles-Grid      */
+.profile-articles {
+  width: 100%;
+  padding: 20px;
+}
+
+.saved-articles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}

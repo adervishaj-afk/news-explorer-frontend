@@ -1,0 +1,84 @@
+.saved-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 576px;
+  max-width: 400px;
+  text-align: left;
+  position: relative;
+  justify-content: space-between;
+}
+
+
+
+.saved-card__image {
+  max-width: auto;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.saved-card__content {
+  padding: 15px;
+}
+
+.saved-card__title {
+  font-size: 1.8vw;
+  margin: 5px 0;
+  color: #1a1b22;
+  font-weight: 400;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.saved-card__description {
+  font-size: 1.1vw;
+  margin: 10px 0;
+  color: #1a1b22;
+  font-weight: 400;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.saved-card__source {
+  margin-top: auto;
+  font-size: 16px;
+  color: #b6bcbf;
+}
+
+.saved-card__date {
+  font-size: 0.9rem;
+  color: #999;
+  margin: 20px 0 auto 4%;
+  font-weight: bold;
+}
+
+.saved-card__remove-button {
+  background: url("../../assets/trash-icon.png");
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+  width: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.saved-card__remove-button:hover {
+  background: url("../../assets/trash-hover.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 40px;
+  width: 40px;
+  background-color: white;
+}

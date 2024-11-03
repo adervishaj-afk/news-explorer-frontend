@@ -1,0 +1,240 @@
+.results {
+  margin: 40px auto;
+  padding: 20px;
+  width: 1440px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.results-list__page-title {
+  margin: 80px auto 64px 104px;
+  font-size: 40px;
+}
+
+.results-image {
+  background-color: white;
+  background-image: url("../../assets/not-found_v1.svg");
+  background-repeat: no-repeat;
+  height: 83px;
+  width: 83px;
+  border: 0;
+  outline: none;
+}
+
+.results-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.results-list__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1440px;
+  width: 100%;
+}
+ 
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 400px;
+  height: auto;
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.show-more {
+  width: 288px;
+  height: 64px;
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  color: black;
+  transition: opacity 0.5s ease-in-out;
+  margin-top: 60px;
+  font-weight: 500;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.show-more:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.results-not-found-title {
+  font-size: 26px;
+  color: black;
+}
+
+.results-not-found-description {
+  font-size: 18px;
+  color: #b6bcbf;
+}
+
+@media (max-width: 842px) {
+  .results {
+    margin: 40px auto;
+    padding: 20px;
+    width: 768px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* justify-content: center; */
+  }
+
+  .results__page-title {
+    margin: 40px auto 32px 40px;
+    font-size: 30px;
+    max-width: 330px;
+  }
+
+  .results-image {
+    background-color: white;
+    background-image: url("../../assets/not-found_v1.svg");
+    background-repeat: no-repeat;
+    height: 83px;
+    width: 83px;
+    border: 0;
+    outline: none;
+  }
+
+  .results-list__cards {
+    justify-content: center;
+  }
+
+  .news-card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    max-width: 1440px;
+    width: 100%;
+  }
+
+  .card {
+    max-width: 400px;
+    height: auto;
+    text-align: left;
+    padding-bottom: 20px;
+  }
+
+  .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .show-more {
+    max-width: 280px;
+    width: 100%;
+    height: 64px;
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .results {
+    margin: 40px auto;
+    padding: 20px;
+    width: 768px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* justify-content: center; */
+  }
+
+  .results__page-title {
+    margin: 40px auto 32px 40px;
+    font-size: 30px;
+    max-width: 330px;
+  }
+
+  .results-image {
+    background-color: white;
+    background-image: url("../../assets/not-found_v1.svg");
+    background-repeat: no-repeat;
+    height: 83px;
+    width: 83px;
+    border: 0;
+    outline: none;
+  }
+
+  .results-list__cards {
+    justify-content: center;
+  }
+
+  .news-card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    max-width: 1440px;
+    width: 100%;
+  }
+
+  .card {
+    max-width: 400px;
+    height: auto;
+    text-align: left;
+    padding-bottom: 20px;
+  }
+
+  .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .show-more {
+    max-width: 280px;
+    width: 100%;
+    height: 64px;
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .results-list__page-title {
+    margin: 40px auto 32px 40px;
+    font-size: 30px;
+    max-width: 280px;
+  }
+
+  .results-list__cards {
+    justify-content: space-around;
+  }
+
+  .cards {
+    justify-content: space-around;
+  }
+}

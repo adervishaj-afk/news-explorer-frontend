@@ -1,0 +1,38 @@
+/* * { outline: 1px solid red; } */
+
+.page {
+  background-color: white;
+  padding: 10;
+}
+
+.page__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page__style {
+  background-image: url("../../assets/georgia-de-lotz.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@media  (max-width: 1440px) {
+  .page__style {
+    background-size: cover;
+  }
+}
+
+@media  (max-width: 768px) {
+  .page__style {
+    background-size: cover;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .page__style {
+    background-size: cover;
+  }
+}
