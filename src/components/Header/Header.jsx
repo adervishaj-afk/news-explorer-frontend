@@ -24,12 +24,16 @@ const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
         location.pathname === "/profile" ? "header__signed-in" : ""
       }`}
     >
-      <div
-        className={`header__logo ${
-          location.pathname === "/profile" ? "header__logo-signed-in" : ""
-        }`}
-      >
-        NewsExplorer
+      <div>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span
+            className={`header__logo ${
+              location.pathname === "/profile" ? "header__logo-signed-in" : ""
+            }`}
+          >
+            NewsExplorer
+          </span>
+        </Link>
       </div>
       <button className="header__menu" onClick={toggleMenu}></button>
       {isMenuOpen && (
@@ -73,11 +77,15 @@ const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
       )}
       <nav className="header__nav">
         <Link to="/">
-          <button className={`header__button-home ${
-                    location.pathname === "/profile"
-                      ? "header__button-home-signin"
-                      : ""
-                  }`}>Home</button>
+          <button
+            className={`header__button-home ${
+              location.pathname === "/profile"
+                ? "header__button-home-signin"
+                : ""
+            }`}
+          >
+            Home
+          </button>
         </Link>
         {!isLoggedIn ? (
           <button
@@ -106,11 +114,14 @@ const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
                   Saved Articles
                 </Link>
               </button>
-              <button className={`header__button-logout ${
-                    location.pathname === "/profile"
-                      ? "header__button-logout-signin"
-                      : ""
-                  }`} onClick={handleLogout}>
+              <button
+                className={`header__button-logout ${
+                  location.pathname === "/profile"
+                    ? "header__button-logout-signin"
+                    : ""
+                }`}
+                onClick={handleLogout}
+              >
                 {/* Log out ({userData.username}) */}
               </button>
             </div>
