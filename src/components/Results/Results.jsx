@@ -15,7 +15,7 @@ const Results = ({
 }) => {
   if (isLoading) {
     return (
-      <div className="results">
+      <div className="results results__loading">
         <Preloader />
         <div>Searching for news...</div>
       </div>

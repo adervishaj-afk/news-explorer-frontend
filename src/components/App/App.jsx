@@ -255,7 +255,7 @@ function App() {
               isModalOpen={isModalOpen}
               isLoggedIn={isLoggedIn}
               handleLogout={handleLogout}
-              userData={userData} 
+              userData={userData}
             />
             <Routes>
               <Route
@@ -291,17 +291,13 @@ function App() {
                 path="/profile"
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    {userData._id ? (
-                      <Profile
-                        articles={savedArticles}
-                        onCardDelete={handleCardDelete}
-                        isLoggedIn={isLoggedIn}
-                        userData={userData} // Pass userData to Profile component
-                        savedArticles={savedArticles}
-                      />
-                    ) : (
-                      <div>Loading profile...</div> // Show loading state while fetching userData
-                    )}
+                    <Profile
+                      articles={savedArticles}
+                      onCardDelete={handleCardDelete}
+                      isLoggedIn={isLoggedIn}
+                      userData={userData} // Pass userData to Profile component
+                      savedArticles={savedArticles}
+                    />
                   </ProtectedRoute>
                 }
               />
