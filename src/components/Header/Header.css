@@ -15,11 +15,10 @@
   color: white;
   margin: 30px 0 26px 104px;
   padding: 0 5px 0;
-  text-decoration: none;
 }
 
 .header__nav {
-  max-width: 700px;
+  max-width: 1200px;
   display: flex;
   gap: 42px;
 }
@@ -96,7 +95,7 @@
   flex-direction: row;
 }
 
-.header__button-saved {
+.header__button-saved-white {
   background-color: transparent;
   color: white;
   border: none;
@@ -104,31 +103,68 @@
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   font-weight: 500;
   border-bottom: 2px solid white;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
   width: auto;
-  margin-top: 30px;
+  margin-top: 27px;
+  text-decoration: none;
+}
+
+.header__button-saved-black {
+  background-color: transparent;
+  color: black;
+  border: none;
+  font-size: 18px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  width: auto;
+  margin-top: 27px;
   text-decoration: none;
 }
 
 .header__button-logout {
-  max-width: 120px;
+  max-width: 150px;
   width: 100%;
   height: 60px;
   background-color: white;
   border: none;
   border-radius: 15%;
   margin-right: 40px;
-  background-image: url("../../assets/Union.png");
-  background-repeat: no-repeat;
-  background-position: center;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
   margin: 0 10px 0;
+  background-color: transparent; /* Set background color for the oval */
+  border-radius: 50px; /* This makes it oval */
+  border: 1px solid grey;
 }
 
-.header__button-logout:hover {
-  opacity: 0.6;
-  cursor: pointer;
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logout-icon-white {
+  height: 23px;
+  width: 23px;
+  margin: 0;
+}
+
+.logout-icon-black {
+  height: 17px;
+  width: 17px;
+  margin: 0;
+}
+
+.logout-username-black {
+  color: black;
+  font-size: 20px;
+}
+
+.logout-username-white {
+  color: white;
+  font-size: 20px;
 }
 
 .profile-link {
@@ -149,7 +185,6 @@
   width: auto;
   margin: 30px 0 26px 104px;
   padding: 0 5px 0;
-  text-decoration: none;
 }
 
 .profile-link__signin {
@@ -167,20 +202,9 @@
 }
 
 .header__button-logout-signin {
-  max-width: 120px;
-  width: 100%;
-  height: 60px;
-  background-color: white;
-  border: 1px solid #1a1b22;
-  border-radius: 15%;
-  margin-right: 40px;
-  background-image: url("../../assets/Union.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: opacity 0.5s ease-in-out;
-  opacity: 1;
-  margin: 0 10px 0;
-  text-decoration: none;
+  background-color: transparent; /* Set background color for the oval */
+  border-radius: 50px; /* This makes it oval */
+  border: 1px solid grey;
 }
 
 .header__button-home-signin {
@@ -258,6 +282,9 @@
 @media (max-width: 480px) {
   .header {
     max-width: 480px;
+    padding: 16px 0;
+    margin: 0;
+    width: 100%;
   }
 
   .header__logo {

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Link, useLocation } from "react-router-dom";
+import UnionWhite from "../../assets/Union-white.png";
+import UnionBlack from "../../assets/Union-black.png";
 
 const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // console.log(userData.username);
 
   const location = useLocation();
 
@@ -98,7 +102,11 @@ const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
           <>
             <div className="header__profile-options">
               <button
-                className="header__button-saved"
+                className={`header__button-saved ${
+                  location.pathname === "/profile"
+                    ? "header__button-saved-black"
+                    : "header__button-saved-white"
+                }`}
                 onClick={() => {
                   // navigate to profile or saved articles
                 }}
@@ -117,12 +125,33 @@ const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
               <button
                 className={`header__button-logout ${
                   location.pathname === "/profile"
-                    ? "header__button-logout-signin"
+                    ? "header__button-logout"
                     : ""
                 }`}
                 onClick={handleLogout}
               >
-                {/* Log out ({userData.username}) */}
+                <div className="logout">
+                  <span
+                    className={`logout-username ${
+                      location.pathname === "/profile"
+                        ? "logout-username-black"
+                        : "logout-username-white"
+                    }`}
+                  >
+                    {userData.name}
+                  </span>
+                  <img
+                    src={
+                      location.pathname === "/profile" ? UnionBlack : UnionWhite
+                    }
+                    alt="logout icon"
+                    className={`logout-icon ${
+                      location.pathname === "/profile"
+                        ? "logout-icon-black"
+                        : "logout-icon-white"
+                    }`}
+                  />
+                </div>
               </button>
             </div>
           </>

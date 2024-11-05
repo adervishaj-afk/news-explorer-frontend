@@ -73,13 +73,14 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         setUserData(data);
-        navigate("/profile");
+        // navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
         removeToken();
+        setIsLoggedIn(false);
       });
-  }, [isLoggedIn]);
+  }, []);
 
   // Handle user registration
   const handleRegistration = ({ username, email, password }) => {
@@ -239,6 +240,8 @@ function App() {
     }
   };
 
+  console.log("App userData:", userData);
+
   return (
     <>
       <div className="page">
@@ -252,6 +255,7 @@ function App() {
               isModalOpen={isModalOpen}
               isLoggedIn={isLoggedIn}
               handleLogout={handleLogout}
+              userData={userData} 
             />
             <Routes>
               <Route
