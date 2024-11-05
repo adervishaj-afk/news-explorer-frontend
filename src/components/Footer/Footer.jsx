@@ -1,5 +1,7 @@
 import React from "react";
 import "./Footer.css";
+import githubIcon from "../../assets/github-tinyd.png";
+import facebookIcon from "../../assets/facebook-tinyd.png";
 
 const Footer = () => {
   return (
@@ -16,10 +18,10 @@ const Footer = () => {
         </nav>
         <div className="footer__media">
         <a href="https://github.com" target="_blank">
-            <img className="footer__github-icon" alt="GitHub" />
+            <img src={githubIcon} className="footer__github-icon" alt="GitHub" />
           </a>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <img className="footer__fb-icon" alt="Facebook" />
+            <img src={facebookIcon} className="footer__fb-icon" alt="Facebook" />
           </a>
         </div>
       </div>
