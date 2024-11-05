@@ -43,7 +43,7 @@ function App() {
   // Fetch saved articles when the component mounts
   useEffect(() => {
     const token = getToken();
-    if (token) {
+    if (token && isLoggedIn) {
       auth
         .getSavedArticles(token)
         .then((articles) => {
@@ -60,7 +60,7 @@ function App() {
           console.error("Error fetching saved articles:", err);
         });
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const token = getToken();
@@ -239,9 +239,7 @@ function App() {
       setIsLoading(false);
     }
   };
-
-  console.log("App userData:", userData);
-
+  
   return (
     <>
       <div className="page">
