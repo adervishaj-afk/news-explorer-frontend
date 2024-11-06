@@ -103,6 +103,12 @@ function App() {
           setToken(data.token);
           setIsLoggedIn(true);
           closeActiveModal();
+
+          auth
+          .getUserInfo(data.token)
+          .then((userInfo) => setUserData(userInfo))
+          .catch(console.error);
+
           navigate("/profile");
         }
       })
@@ -239,7 +245,7 @@ function App() {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <>
       <div className="page">
