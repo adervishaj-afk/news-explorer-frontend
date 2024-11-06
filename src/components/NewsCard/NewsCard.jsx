@@ -59,8 +59,7 @@ const NewsCard = ({
         <button
           className={`news-card__bookmark ${isSaved ? "saved" : ""}`}
           onClick={handleBookmarkClick}
-        >
-        </button>
+        ></button>
       </div>
       <p className="news-card__source">
         Source: {article?.source?.name ? article.source.name : "Unknown Source"}
@@ -70,7 +69,6 @@ const NewsCard = ({
 };
 
 export default NewsCard;
-
 
 // import React, { useState, useEffect } from "react";
 // import "./NewCard.css";
@@ -82,8 +80,6 @@ export default NewsCard;
 //   isLoggedIn,
 //   savedArticles = [],
 // }) => {
-
- 
 
 //   return (
 //     <div className="news-card">
@@ -116,4 +112,3 @@ export default NewsCard;
 // };
 
 // export default NewsCard;
-

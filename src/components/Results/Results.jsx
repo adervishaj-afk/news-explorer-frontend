@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NewsCard from "../NewsCard/NewsCard";
 import "./Results.css";
 import Preloader from "../Preloader/Preloader";
+import notFound from "../../assets/not-found_v1.svg";
 
 const Results = ({
   isLoading,
@@ -27,11 +28,11 @@ const Results = ({
   if (error) {
     return (
       <div className="results">
-        <img className="results-image"></img>
+        <img src={notFound} className="results-image"></img>
         <p>
           <span className="results-not-found-title">
             Sorry, something went wrong during the request.
-          </span>{" "}
+          </span>
         </p>
         <span className="results-not-found-description">
           There may be a connection issue or the server may be down. Please try
