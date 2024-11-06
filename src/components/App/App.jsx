@@ -92,28 +92,29 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  // Handle user login
-  const handleLogin = ({ email, password }) => {
-    if (!email || !password) return;
+// Handle user login
+const handleLogin = ({ email, password }) => {
+  if (!email || !password) return;
 
-    auth
-      .signin(email, password)
-      .then((data) => {
-        if (data.token) {
-          setToken(data.token);
-          setIsLoggedIn(true);
-          closeActiveModal();
-
-          auth
-          .getUserInfo(data.token)
-          .then((userInfo) => setUserData(userInfo))
-          .catch(console.error);
-
-          navigate("/profile");
-        }
-      })
-      .catch(console.error);
-  };
+  auth
+    .signin(email, password)
+    .then((data) => {
+      if (data.token) {
+        setToken(data.token);
+        // Fetch user data immediately after setting the token
+        return auth.getUserInfo(data.token);
+      }
+    })
+    .then((userInfo) => {
+      if (userInfo) {
+        setUserData(userInfo); // Set user data after fetching it
+        setIsLoggedIn(true); // Set logged-in status only after user data is available
+        closeActiveModal();
+        navigate("/profile");
+      }
+    })
+    .catch(console.error);
+};
 
   // Handle logout
   const handleLogout = () => {
@@ -285,6 +286,8 @@ function App() {
                         onCardDelete={handleCardDelete}
                         savedArticles={savedArticles}
                         searchQuery={searchQuery}
+                        isLoggedIn={isLoggedIn}
+                        handleSignin={handleSignin}
                       />
                     )}
                     <About />

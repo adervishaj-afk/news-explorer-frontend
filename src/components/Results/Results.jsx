@@ -12,6 +12,8 @@ const Results = ({
   onCardLike,
   onCardDelete,
   savedArticles,
+  isLoggedIn,
+  handleSignin,
 }) => {
   if (isLoading) {
     return (
@@ -64,6 +66,8 @@ const Results = ({
             savedArticles={savedArticles}
             onCardLike={onCardLike}
             onCardDelete={onCardDelete}
+            isLoggedIn={isLoggedIn}
+            handleSignin={handleSignin}
           />
         ))}
       </div>

@@ -7,6 +7,7 @@ const NewsCard = ({
   onCardDelete,
   isLoggedIn,
   savedArticles = [],
+  handleSignin,
 }) => {
   // Check if the article is already saved based on its generated ID
   const isArticleSaved = savedArticles?.some(
@@ -22,6 +23,12 @@ const NewsCard = ({
   }, [isArticleSaved, savedArticles]);
 
   const handleBookmarkClick = () => {
+    if (!isLoggedIn) {
+      // If the user is not logged in, open the sign-in modal
+      handleSignin();
+      return;
+    }
+
     if (isSaved) {
       // If the article is saved, call onCardDelete using the article
       onCardDelete(article);
