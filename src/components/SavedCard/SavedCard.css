@@ -13,15 +13,19 @@
 }
 
 .saved-card__image {
-  max-width: auto;
   width: 100%;
-  height: 280px;
+  min-height: 280px;
   object-fit: fill;
-  border-radius: 20px 20px 0 0 ;
+  border-radius: 20px 20px 0 0;
 }
 
 .saved-card__content {
   padding: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-height: 304px;
 }
 
 .saved-card__title {
@@ -30,10 +34,12 @@
   max-width: auto;
   font-size: 1.8vw;
   margin: 5px 0;
-  color: #1A1B22;
+  color: #1a1b22;
   margin-top: 0;
   font-weight: 400;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
+  overflow: hidden;          
+  text-overflow: ellipsis; 
 }
 
 .saved-card__description {
@@ -42,20 +48,22 @@
   max-width: auto;
   font-size: 1.1vw;
   margin: 10px 0;
-  color: #1A1B22;
+  color: #1a1b22;
   line-height: 1.5;
   font-weight: 400;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
+    overflow: hidden;          
+  text-overflow: ellipsis; 
 }
 
 .saved-card__source {
   margin-bottom: 0;
-  padding-left: 18px;
+  /* padding-left: 18px; */
   max-width: auto;
-  margin-bottom: 15px;
-  margin-top: auto;
+  /* margin-bottom: 15px; */
+  padding-top: auto;
   font-size: 16px;
-  color: #B6BCBF;
+  color: #b6bcbf;
   font-weight: 700;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
@@ -63,10 +71,9 @@
 .saved-card__date {
   max-width: auto;
   font-size: 1.1rem;
-  color: #B6BCBF;
-  margin-top: 5%;
-  margin-left: 4%;
-  margin-bottom: 0;
+  color: #b6bcbf;
+  margin-top: 0;
+  margin-bottom: 17px;
   font-weight: bold;
 }
 

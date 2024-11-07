@@ -22,8 +22,9 @@ const SavedCard = ({ article, onCardDelete, isLoggedIn }) => {
         alt={article?.title}
         className="saved-card__image"
       />
-      <p className="saved-card__date">{displayDate}</p>
+      
       <div className="saved-card__content">
+      <p className="saved-card__date">{displayDate}</p>
         <h3 className="saved-card__title">{article?.title}</h3>
         <p className="saved-card__description">{article?.description}</p>
         <button
@@ -31,10 +32,10 @@ const SavedCard = ({ article, onCardDelete, isLoggedIn }) => {
           onClick={handleDeleteClick}
         >
         </button>
-      </div>
-      <p className="saved-card__source">
+        <p className="saved-card__source">
           {article?.sourceName || "Unknown Source"}
         </p>
+      </div>
     </div>
   );
 };

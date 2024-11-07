@@ -15,6 +15,7 @@ const Results = ({
   savedArticles,
   isLoggedIn,
   handleSignin,
+  handleToggleBookmark,
 }) => {
   if (isLoading) {
     return (
@@ -69,6 +70,7 @@ const Results = ({
             onCardDelete={onCardDelete}
             isLoggedIn={isLoggedIn}
             handleSignin={handleSignin}
+            handleToggleBookmark={handleToggleBookmark}
           />
         ))}
       </div>

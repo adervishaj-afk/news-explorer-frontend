@@ -37,8 +37,8 @@ function App() {
   const showMoreArticles = () => {
     setVisibleArticles((prev) => prev + 3);
   };
-
   const navigate = useNavigate();
+
 
   // Fetch saved articles when the component mounts
   useEffect(() => {
@@ -129,27 +129,80 @@ const handleLogin = ({ email, password }) => {
     );
   };
 
-  // Handle saving (liking) articles
-  const handleCardLike = (article) => {
-    const token = getToken();
-    if (!token) return;
-    // console.log(article);
-    const articleId = generateArticleId(article);
-    article.articleId = articleId;
-    // console.log(article.articleId);
+// // Handle toggling of bookmarks
+// const handleToggleBookmark = (article) => {
+//   const articleId = generateArticleId(article);
 
-    // Attach the keywords (from searchQuery) to the article
-    article.keywords = searchQuery.split(" "); // Split search query into individual keywords
+//   setSavedArticles((prevArticles) => {
+//     const isArticleSaved = prevArticles.some(
+//       (savedArticle) => savedArticle.articleId === articleId
+//     );
 
-    // console.log("Article with attached keywords:", article.keywords.slice(0,2)); // Log the article with keywords for confirmation
+//     if (isArticleSaved) {
+//       // If already saved, remove the article
+//       handleCardDelete(article);
+//       return prevArticles.filter((a) => a.articleId !== articleId);
+//     } else {
+//       // If not saved, call handleCardLike directly in NewsCard to add it to savedArticles
+//       return [...prevArticles, article];
+//     }
+//   });
+// };
 
-    auth
-      .likeArticle(article, token) // Pass the articleId and article object to the API
-      .then((likedArticle) => {
-        setSavedArticles([...savedArticles, likedArticle]); // Add saved article to state
-      })
-      .catch(console.error);
-  };
+// Handle saving (liking) articles
+const handleCardLike = (article) => {
+  const token = getToken();
+  if (!token) return;
+
+  const articleId = generateArticleId(article);
+  article.articleId = articleId;
+
+  // Attach the keywords (from searchQuery) to the article
+  article.keywords = searchQuery.split(" "); // Split search query into individual keywords
+
+  // Make an API request to add the article, checking if it already exists on the server
+  auth
+    .likeArticle(article, token)
+    .then((likedArticle) => {
+      // Add saved article to state if it was successfully added on the backend
+      setSavedArticles((prevArticles) => {
+        const isAlreadySaved = prevArticles.some(
+          (savedArticle) => savedArticle.articleId === likedArticle.articleId
+        );
+        // Avoid duplicate entries in the frontend state
+        return isAlreadySaved ? prevArticles : [...prevArticles, likedArticle];
+      });
+    })
+    .catch((err) => {
+      if (err.code === 11000) {
+        console.log("Article already exists in the database.");
+      } else {
+        console.error("Error in handleCardLike:", err);
+      }
+    });
+};
+
+  // // Handle saving (liking) articles
+  // const handleCardLike = (article) => {
+  //   const token = getToken();
+  //   if (!token) return;
+  //   // console.log(article);
+  //   const articleId = generateArticleId(article);
+  //   article.articleId = articleId;
+  //   // console.log(article.articleId);
+
+  //   // Attach the keywords (from searchQuery) to the article
+  //   article.keywords = searchQuery.split(" "); // Split search query into individual keywords
+
+  //   // console.log("Article with attached keywords:", article.keywords.slice(0,2)); // Log the article with keywords for confirmation
+
+  //   auth
+  //     .likeArticle(article, token) // Pass the articleId and article object to the API
+  //     .then((likedArticle) => {
+  //       setSavedArticles([...savedArticles, likedArticle]); // Add saved article to state
+  //     })
+  //     .catch(console.error);
+  // };
 
   const handleCardDelete = (article) => {
     const token = getToken();
@@ -288,6 +341,7 @@ const handleLogin = ({ email, password }) => {
                         searchQuery={searchQuery}
                         isLoggedIn={isLoggedIn}
                         handleSignin={handleSignin}
+                        // handleToggleBookmark={handleToggleBookmark}
                       />
                     )}
                     <About />
