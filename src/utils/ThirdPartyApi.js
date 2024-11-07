@@ -30,7 +30,7 @@ export const getNews = async (query) => {
     const articles = data.articles.map((article) => ({
       sourceName: article.source.name,
       title: article.title,
-      publishedAt: formatDate(article.publishedAt),
+      publishedAt: article.publishedAt,
       description: article.description,
       urlToImage: article.urlToImage,
       url: article.url,

@@ -1,11 +1,19 @@
 import React from "react";
-import "./SavedCard.css"; // Assuming you will have a separate CSS file for SavedCards
+import "./SavedCard.css"; 
 
 const SavedCard = ({ article, onCardDelete, isLoggedIn }) => {
   const handleDeleteClick = () => {
-    onCardDelete(article); // Call the delete function passed from props
-    
+    onCardDelete(article); 
   };
+
+  // Format date for display in "Month Day, Year" format
+  const displayDate = article?.publishedAt
+    ? new Date(article.publishedAt).toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "Unknown Date";
 
   return (
     <div className="saved-card">
@@ -14,24 +22,19 @@ const SavedCard = ({ article, onCardDelete, isLoggedIn }) => {
         alt={article?.title}
         className="saved-card__image"
       />
-      <p className="saved-card__date">
-        Date:{" "}
-        {article?.publishedAt
-          ? new Date(article.publishedAt).toLocaleDateString()
-          : "Unknown Date"}
-      </p>
+      <p className="saved-card__date">{displayDate}</p>
       <div className="saved-card__content">
         <h3 className="saved-card__title">{article?.title}</h3>
         <p className="saved-card__description">{article?.description}</p>
-        <p className="saved-card__source">
-          Source: {article?.sourceName || "Unknown Source"}
-        </p>
         <button
           className="saved-card__remove-button"
           onClick={handleDeleteClick}
         >
         </button>
       </div>
+      <p className="saved-card__source">
+          {article?.sourceName || "Unknown Source"}
+        </p>
     </div>
   );
 };
