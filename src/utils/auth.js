@@ -43,7 +43,6 @@ const getUserInfo = (token) => {
   }).then(handleServerResponse);
 };
 
-
 // Like (save) an article
 const likeArticle = (article, token) => {
   const articleJson = {

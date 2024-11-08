@@ -39,48 +39,36 @@ function App() {
   };
   const navigate = useNavigate();
 
-
-  // Fetch saved articles when the component mounts
   useEffect(() => {
     const token = getToken();
-    if (token && isLoggedIn) {
+    if (token) {
       auth
-        .getSavedArticles(token)
+        .getUserInfo(token)
+        .then((user) => {
+          setUserData(user);
+          setIsLoggedIn(true); // Ensure `isLoggedIn` is true
+          return auth.getSavedArticles(token); // Fetch saved articles immediately
+        })
         .then((articles) => {
-          setSavedArticles(articles); // Set the articles in state
-
-          // Extract all unique keywords from articles
-          const allKeywords = articles.flatMap(
-            (article) => article.keywords || []
-          );
-          const uniqueKeywords = Array.from(new Set(allKeywords));
-          setUniqueKeywords(uniqueKeywords);
+          console.log("Fetched Articles:", articles); // Debug
+          setSavedArticles(articles); // Update savedArticles state
+  
+          // Extract unique keywords directly from fetched articles
+          const allKeywords = articles.flatMap((article) => article.keywords || []);
+          setUniqueKeywords(Array.from(new Set(allKeywords))); // Update uniqueKeywords state
         })
         .catch((err) => {
-          console.error("Error fetching saved articles:", err);
+          console.error("Error:", err);
+          setIsLoggedIn(false); // Ensure state is consistent
         });
     }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    const token = getToken();
-
-    if (!token) return;
-
-    // Validate the token and get user info
-    auth
-      .getUserInfo(token)
-      .then((data) => {
-        setIsLoggedIn(true);
-        setUserData(data);
-        // navigate("/profile");
-      })
-      .catch((err) => {
-        console.error(err);
-        removeToken();
-        setIsLoggedIn(false);
-      });
   }, []);
+
+useEffect(() => {
+  // Recalculate unique keywords whenever savedArticles changes
+  const allKeywords = savedArticles.flatMap((article) => article.keywords || []);
+  setUniqueKeywords(Array.from(new Set(allKeywords))); // Update uniqueKeywords state
+}, [savedArticles]); // Dependency array ensures this runs whenever savedArticles changes
 
   // Handle user registration
   const handleRegistration = ({ username, email, password }) => {
@@ -92,29 +80,29 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-// Handle user login
-const handleLogin = ({ email, password }) => {
-  if (!email || !password) return;
+  // Handle user login
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) return;
 
-  auth
-    .signin(email, password)
-    .then((data) => {
-      if (data.token) {
-        setToken(data.token);
-        // Fetch user data immediately after setting the token
-        return auth.getUserInfo(data.token);
-      }
-    })
-    .then((userInfo) => {
-      if (userInfo) {
-        setUserData(userInfo); // Set user data after fetching it
-        setIsLoggedIn(true); // Set logged-in status only after user data is available
-        closeActiveModal();
-        navigate("/profile");
-      }
-    })
-    .catch(console.error);
-};
+    auth
+      .signin(email, password)
+      .then((data) => {
+        if (data.token) {
+          setToken(data.token);
+          // Fetch user data immediately after setting the token
+          return auth.getUserInfo(data.token);
+        }
+      })
+      .then((userInfo) => {
+        if (userInfo) {
+          setUserData(userInfo); // Set user data after fetching it
+          setIsLoggedIn(true); // Set logged-in status only after user data is available
+          closeActiveModal();
+          navigate("/profile");
+        }
+      })
+      .catch(console.error);
+  };
 
   // Handle logout
   const handleLogout = () => {
@@ -129,58 +117,60 @@ const handleLogin = ({ email, password }) => {
     );
   };
 
-// // Handle toggling of bookmarks
-// const handleToggleBookmark = (article) => {
-//   const articleId = generateArticleId(article);
+  // // Handle toggling of bookmarks
+  // const handleToggleBookmark = (article) => {
+  //   const articleId = generateArticleId(article);
 
-//   setSavedArticles((prevArticles) => {
-//     const isArticleSaved = prevArticles.some(
-//       (savedArticle) => savedArticle.articleId === articleId
-//     );
+  //   setSavedArticles((prevArticles) => {
+  //     const isArticleSaved = prevArticles.some(
+  //       (savedArticle) => savedArticle.articleId === articleId
+  //     );
 
-//     if (isArticleSaved) {
-//       // If already saved, remove the article
-//       handleCardDelete(article);
-//       return prevArticles.filter((a) => a.articleId !== articleId);
-//     } else {
-//       // If not saved, call handleCardLike directly in NewsCard to add it to savedArticles
-//       return [...prevArticles, article];
-//     }
-//   });
-// };
+  //     if (isArticleSaved) {
+  //       // If already saved, remove the article
+  //       handleCardDelete(article);
+  //       return prevArticles.filter((a) => a.articleId !== articleId);
+  //     } else {
+  //       // If not saved, call handleCardLike directly in NewsCard to add it to savedArticles
+  //       return [...prevArticles, article];
+  //     }
+  //   });
+  // };
 
-// Handle saving (liking) articles
-const handleCardLike = (article) => {
-  const token = getToken();
-  if (!token) return;
+  // Handle saving (liking) articles
+  const handleCardLike = (article) => {
+    const token = getToken();
+    if (!token) return;
 
-  const articleId = generateArticleId(article);
-  article.articleId = articleId;
+    const articleId = generateArticleId(article);
+    article.articleId = articleId;
 
-  // Attach the keywords (from searchQuery) to the article
-  article.keywords = searchQuery.split(" "); // Split search query into individual keywords
+    // Attach the keywords (from searchQuery) to the article
+    article.keywords = searchQuery.split(" "); // Split search query into individual keywords
 
-  // Make an API request to add the article, checking if it already exists on the server
-  auth
-    .likeArticle(article, token)
-    .then((likedArticle) => {
-      // Add saved article to state if it was successfully added on the backend
-      setSavedArticles((prevArticles) => {
-        const isAlreadySaved = prevArticles.some(
-          (savedArticle) => savedArticle.articleId === likedArticle.articleId
-        );
-        // Avoid duplicate entries in the frontend state
-        return isAlreadySaved ? prevArticles : [...prevArticles, likedArticle];
+    // Make an API request to add the article, checking if it already exists on the server
+    auth
+      .likeArticle(article, token)
+      .then((likedArticle) => {
+        // Add saved article to state if it was successfully added on the backend
+        setSavedArticles((prevArticles) => {
+          const isAlreadySaved = prevArticles.some(
+            (savedArticle) => savedArticle.articleId === likedArticle.articleId
+          );
+          // Avoid duplicate entries in the frontend state
+          return isAlreadySaved
+            ? prevArticles
+            : [...prevArticles, likedArticle];
+        });
+      })
+      .catch((err) => {
+        if (err.code === 11000) {
+          console.log("Article already exists in the database.");
+        } else {
+          console.error("Error in handleCardLike:", err);
+        }
       });
-    })
-    .catch((err) => {
-      if (err.code === 11000) {
-        console.log("Article already exists in the database.");
-      } else {
-        console.error("Error in handleCardLike:", err);
-      }
-    });
-};
+  };
 
   // // Handle saving (liking) articles
   // const handleCardLike = (article) => {
@@ -358,6 +348,7 @@ const handleCardLike = (article) => {
                       isLoggedIn={isLoggedIn}
                       userData={userData} // Pass userData to Profile component
                       savedArticles={savedArticles}
+                      uniqueKeywords={uniqueKeywords}
                     />
                   </ProtectedRoute>
                 }
