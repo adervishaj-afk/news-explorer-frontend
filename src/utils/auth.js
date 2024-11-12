@@ -5,42 +5,45 @@ export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
+// Reusable request function
+const request = (url, options) => {
+  return fetch(url, options).then(handleServerResponse);
+};
+
 // Sign up user (register)
 const signup = (name, email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return request(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, email, password }), // Sending name, email, and password
-  }).then(handleServerResponse);
+    body: JSON.stringify({ name, email, password }),
+  });
 };
 
 // Sign in user (login)
 const signin = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return request(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }), // Sending email and password
-  }).then(handleServerResponse);
+    body: JSON.stringify({ email, password }),
+  });
 };
 
+// Get user info
 const getUserInfo = (token) => {
-  // Send a GET request to /users/me
-  return fetch(`${BASE_URL}/user/me`, {
+  return request(`${BASE_URL}/user/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      // Specify an authorization header with an appropriately
-      // formatted value.
       Authorization: `Bearer ${token}`,
     },
-  }).then(handleServerResponse);
+  });
 };
 
 // Like (save) an article
@@ -56,42 +59,43 @@ const likeArticle = (article, token) => {
     url: article.url,
   };
 
-  // Step 2: Convert the object to a JSON string
-  const jsonBody = JSON.stringify(articleJson);
-
-  return fetch(`${BASE_URL}/article/${article.articleId}/like`, {
-    method: "POST", // Use PUT method to like the article
+  return request(`${BASE_URL}/article/${article.articleId}/like`, {
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Pass the token for authentication
+      Authorization: `Bearer ${token}`,
     },
-    body: jsonBody,
-  }).then(handleServerResponse);
+    body: JSON.stringify(articleJson),
+  });
 };
 
 // Dislike (un-save) an article
 const deleteArticle = (articleId, token) => {
   console.log("Delete Article Function Called with ID:", articleId);
 
-  return fetch(`${BASE_URL}/article/${encodeURIComponent(articleId)}/delete`, {
-    method: "DELETE", // Use DELETE method to remove the like
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Pass the token for authentication
-    },
-  }).then(handleServerResponse);
+  return request(
+    `${BASE_URL}/article/${encodeURIComponent(articleId)}/delete`,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };
 
+// Get saved articles
 const getSavedArticles = (token) => {
-  return fetch(`${BASE_URL}/article/saved`, {
+  return request(`${BASE_URL}/article/saved`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-  }).then(handleServerResponse);
+  });
 };
 
 export const auth = {

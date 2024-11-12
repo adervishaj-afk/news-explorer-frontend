@@ -27,6 +27,7 @@ const SavedCard = ({ article, onCardDelete, isLoggedIn }) => {
       <p className="saved-card__date">{displayDate}</p>
         <h3 className="saved-card__title">{article?.title}</h3>
         <p className="saved-card__description">{article?.description}</p>
+        <p className="saved-card__category">{article?.keywords}</p>
         <button
           className="saved-card__remove-button"
           onClick={handleDeleteClick}

@@ -1,48 +1,39 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 const RegisterModal = ({
-  handleRegistration,  // Pass in the registration function from the parent
+  handleRegistration,
   isOpen,
   closeActiveModal,
   handleOutsideClick,
   handleSignin,
 }) => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-    username: "",
-  });
-  const [errorMessage, setErrorMessage] = useState('');
+  const { values, handleChange, errors, resetForm } = useFormAndValidation();
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setErrorMessage('');
+    setErrorMessage("");
 
     try {
-      await handleRegistration(data);  // Call the handleRegistration function from props
+      await handleRegistration(values);
       setIsLoading(false);
+      resetForm();
     } catch (err) {
-      setErrorMessage('Failed to register. Please try again.');
+      setErrorMessage("Failed to register. Please try again.");
       setIsLoading(false);
     }
   };
 
+  const hasErrors = Object.values(errors).some((error) => error);
+
   return (
     <ModalWithForm
       title="Sign Up"
-      buttonText="Sign up"
       isOpen={isOpen}
       onClose={closeActiveModal}
       onSubmit={handleSubmit}
@@ -55,12 +46,14 @@ const RegisterModal = ({
         id="email"
         required
         name="email"
-        type="text"
-        value={data.email}
+        type="email"
+        value={values.email || ""}
         onChange={handleChange}
-        className="signin-input"
+        className={`signin-input ${errors.email ? "signin-input--error" : ""}`}
         placeholder="Email"
       />
+      {errors.email && <span className="error-message">{errors.email}</span>}
+
       <label htmlFor="password" className="signin-label">
         Password
       </label>
@@ -69,11 +62,18 @@ const RegisterModal = ({
         required
         name="password"
         type="password"
-        value={data.password}
+        minLength="3"
+        value={values.password || ""}
         onChange={handleChange}
-        className="signin-input"
+        className={`signin-input ${
+          errors.password ? "signin-input--error" : ""
+        }`}
         placeholder="Password"
       />
+      {errors.password && (
+        <span className="error-message">{errors.password}</span>
+      )}
+
       <label htmlFor="username" className="signin-label">
         Username
       </label>
@@ -82,15 +82,28 @@ const RegisterModal = ({
         required
         name="username"
         type="text"
-        value={data.username}
+        minLength="3"
+        value={values.username || ""}
         onChange={handleChange}
-        className="signin-input"
+        className={`signin-input ${
+          errors.username ? "signin-input--error" : ""
+        }`}
         placeholder="Username"
       />
+      {errors.username && (
+        <span className="error-message">{errors.username}</span>
+      )}
+
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div>
         <div className="action-buttons">
-          <button className="signin-button" type="submit" disabled={isLoading}>
+          <button
+            className={`signin-button ${
+              hasErrors || isLoading ? "signin-button-disabled" : ""
+            }`}
+            type="submit"
+            disabled={hasErrors || isLoading}
+          >
             {isLoading ? "Signing up..." : "Sign up"}
           </button>
           <button

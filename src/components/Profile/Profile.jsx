@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
-import { auth } from "../../utils/auth"; // Import the function
-import { getToken } from "../../utils/token"; // To get the token
 import SavedCard from "../SavedCard/SavedCard";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const Profile = ({
-  userData,
   handleCardClick,
   handleDeleteArticle,
   onCardLike,
@@ -14,7 +13,7 @@ const Profile = ({
   savedArticles,
   uniqueKeywords,
 }) => {
-
+  const { userData } = useContext(CurrentUserContext);
 
   const renderKeywordsSummary = () => {
     if (uniqueKeywords.length === 0) {
@@ -31,7 +30,7 @@ const Profile = ({
   if (!savedArticles || savedArticles.length === 0) {
     return (
       <div className="profile">
-        <h2>{userData.name}, you have not saved any articles yet.</h2>
+        <h2 className="profile__article-number">{userData.name}, you have not saved any articles yet.</h2>
       </div>
     );
   }
@@ -61,8 +60,6 @@ const Profile = ({
               isLoggedIn={isLoggedIn}
               onCardDelete={onCardDelete}
             />
-            {/* Display keywords associated with the article */}
-            {/* <p className="article-keywords">Keywords: {article.keywords?.join(", ") || "No keywords"}</p> */}
           </li>
         ))}
       </ul>

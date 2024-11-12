@@ -15,7 +15,8 @@ import { api } from "../../utils/ThirdPartyApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { auth } from "../../utils/auth";
 import Profile from "../Profile/Profile";
-import { Link, useLocation } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -50,11 +51,12 @@ function App() {
           return auth.getSavedArticles(token); // Fetch saved articles immediately
         })
         .then((articles) => {
-          console.log("Fetched Articles:", articles); // Debug
           setSavedArticles(articles); // Update savedArticles state
-  
+
           // Extract unique keywords directly from fetched articles
-          const allKeywords = articles.flatMap((article) => article.keywords || []);
+          const allKeywords = articles.flatMap(
+            (article) => article.keywords || []
+          );
           setUniqueKeywords(Array.from(new Set(allKeywords))); // Update uniqueKeywords state
         })
         .catch((err) => {
@@ -64,11 +66,13 @@ function App() {
     }
   }, []);
 
-useEffect(() => {
-  // Recalculate unique keywords whenever savedArticles changes
-  const allKeywords = savedArticles.flatMap((article) => article.keywords || []);
-  setUniqueKeywords(Array.from(new Set(allKeywords))); // Update uniqueKeywords state
-}, [savedArticles]); // Dependency array ensures this runs whenever savedArticles changes
+  useEffect(() => {
+    // Recalculate unique keywords whenever savedArticles changes
+    const allKeywords = savedArticles.flatMap(
+      (article) => article.keywords || []
+    );
+    setUniqueKeywords(Array.from(new Set(allKeywords))); // Update uniqueKeywords state
+  }, [savedArticles]); // Dependency array ensures this runs whenever savedArticles changes
 
   // Handle user registration
   const handleRegistration = ({ username, email, password }) => {
@@ -116,26 +120,6 @@ useEffect(() => {
       `${article?.title}-${article?.publishedAt}-${article?.sourceName}`
     );
   };
-
-  // // Handle toggling of bookmarks
-  // const handleToggleBookmark = (article) => {
-  //   const articleId = generateArticleId(article);
-
-  //   setSavedArticles((prevArticles) => {
-  //     const isArticleSaved = prevArticles.some(
-  //       (savedArticle) => savedArticle.articleId === articleId
-  //     );
-
-  //     if (isArticleSaved) {
-  //       // If already saved, remove the article
-  //       handleCardDelete(article);
-  //       return prevArticles.filter((a) => a.articleId !== articleId);
-  //     } else {
-  //       // If not saved, call handleCardLike directly in NewsCard to add it to savedArticles
-  //       return [...prevArticles, article];
-  //     }
-  //   });
-  // };
 
   // Handle saving (liking) articles
   const handleCardLike = (article) => {
@@ -241,6 +225,7 @@ useEffect(() => {
   };
 
   useEffect(() => {
+    if (!activeModal) return;
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && activeModal) {
         closeActiveModal();
@@ -277,8 +262,6 @@ useEffect(() => {
     try {
       const news = await getNews(searchQuery);
 
-      console.log("Fetched articles for query:", news); // Log fetched articles to ensure data is coming through
-
       setArticles(news);
       if (news.length === 0) {
         setError("No articles found for this query.");
@@ -291,100 +274,97 @@ useEffect(() => {
   };
 
   return (
-    <>
-      <div className="page">
-        <div className="page__content">
-          <div className="page__style">
-            <Header
-              handleSignIn={handleSignin}
-              handleSignup={handleSignup}
-              onClose={closeActiveModal}
-              isOpen={activeModal === "sign-in"}
-              isModalOpen={isModalOpen}
-              isLoggedIn={isLoggedIn}
-              handleLogout={handleLogout}
-              userData={userData}
-            />
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={
-                  <>
-                    <Main
-                      handleSearch={handleSearch}
-                      isSubmitted={isSubmitted}
+    <CurrentUserContext.Provider value={{userData}}>
+    <div className="page">
+      <div className="page__content">
+        <div className="page__style">
+          <Header
+            handleSignIn={handleSignin}
+            handleSignup={handleSignup}
+            onClose={closeActiveModal}
+            isOpen={activeModal === "sign-in"}
+            isModalOpen={isModalOpen}
+            isLoggedIn={isLoggedIn}
+            handleLogout={handleLogout}
+          />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <Main
+                    handleSearch={handleSearch}
+                    isSubmitted={isSubmitted}
+                    isLoading={isLoading}
+                    error={error}
+                    articles={articles}
+                  />
+                  {isSubmitted && (
+                    <Results
+                      showMoreArticles={showMoreArticles}
+                      visibleArticles={visibleArticles}
                       isLoading={isLoading}
                       error={error}
                       articles={articles}
-                    />
-                    {isSubmitted && (
-                      <Results
-                        showMoreArticles={showMoreArticles}
-                        visibleArticles={visibleArticles}
-                        isLoading={isLoading}
-                        error={error}
-                        articles={articles}
-                        onCardLike={handleCardLike}
-                        onCardDelete={handleCardDelete}
-                        savedArticles={savedArticles}
-                        searchQuery={searchQuery}
-                        isLoggedIn={isLoggedIn}
-                        handleSignin={handleSignin}
-                        // handleToggleBookmark={handleToggleBookmark}
-                      />
-                    )}
-                    <About />
-                  </>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Profile
-                      articles={savedArticles}
+                      onCardLike={handleCardLike}
                       onCardDelete={handleCardDelete}
-                      isLoggedIn={isLoggedIn}
-                      userData={userData} // Pass userData to Profile component
                       savedArticles={savedArticles}
-                      uniqueKeywords={uniqueKeywords}
+                      searchQuery={searchQuery}
+                      isLoggedIn={isLoggedIn}
+                      handleSignin={handleSignin}
+                      // handleToggleBookmark={handleToggleBookmark}
                     />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="*"
-                element={
-                  isLoggedIn ? <Navigate to="/" /> : <Navigate to="/profile" />
-                }
-              />
-            </Routes>
-          </div>
-
+                  )}
+                  <About />
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    articles={savedArticles}
+                    onCardDelete={handleCardDelete}
+                    isLoggedIn={isLoggedIn}
+                    savedArticles={savedArticles}
+                    uniqueKeywords={uniqueKeywords}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                isLoggedIn ? <Navigate to="/" /> : <Navigate to="/profile" />
+              }
+            />
+          </Routes>
           <Footer />
         </div>
-        {activeModal === "sign-in" && (
-          <LoginModal
-            closeActiveModal={closeActiveModal}
-            isOpen={activeModal === "sign-in"}
-            handleSignup={handleSignup}
-            handleOutsideClick={handleOutsideClick}
-            handleLogin={handleLogin}
-          />
-        )}
-        {activeModal === "sign-up" && (
-          <RegisterModal
-            closeActiveModal={closeActiveModal}
-            isOpen={activeModal === "sign-up"}
-            handleSignin={handleSignin}
-            handleOutsideClick={handleOutsideClick}
-            isModalOpen={isModalOpen}
-            handleRegistration={handleRegistration}
-          />
-        )}
       </div>
-    </>
+      {activeModal === "sign-in" && (
+        <LoginModal
+          closeActiveModal={closeActiveModal}
+          isOpen={activeModal === "sign-in"}
+          handleSignup={handleSignup}
+          handleOutsideClick={handleOutsideClick}
+          handleLogin={handleLogin}
+        />
+      )}
+      {activeModal === "sign-up" && (
+        <RegisterModal
+          closeActiveModal={closeActiveModal}
+          isOpen={activeModal === "sign-up"}
+          handleSignin={handleSignin}
+          handleOutsideClick={handleOutsideClick}
+          isModalOpen={isModalOpen}
+          handleRegistration={handleRegistration}
+        />
+      )}
+    </div>
+    </CurrentUserContext.Provider>
   );
 }
 

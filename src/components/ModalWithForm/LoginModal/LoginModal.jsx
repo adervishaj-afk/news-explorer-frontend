@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 const LoginModal = ({
   handleLogin,
@@ -9,58 +10,50 @@ const LoginModal = ({
   handleSignup,
   handleOutsideClick,
 }) => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [errorMessage, setErrorMessage] = useState(""); // For error handling
-  const [isLoading, setIsLoading] = useState(false); // For loading state
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const { values, handleChange, errors, resetForm } = useFormAndValidation();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading state when request is sent
-    setErrorMessage('');
+    setIsLoading(true);
+    setErrorMessage("");
 
     try {
-      await handleLogin(data);  // Call the handleLogin function from props
-      setIsLoading(false);
+      await handleLogin(values);
+      resetForm();
     } catch (err) {
-      setErrorMessage('Failed to sign in. Please try again.');
+      setErrorMessage("Failed to sign in. Please try again.");
+    } finally {
       setIsLoading(false);
     }
   };
 
+  const hasErrors = Object.values(errors).some((error) => error);
+
   return (
     <ModalWithForm
       title="Sign In"
-      buttonText="Sign in"
       isOpen={isOpen}
       onClose={closeActiveModal}
       onSubmit={handleSubmit}
       handleOutsideClick={handleOutsideClick}
     >
-      <label htmlFor="username" className="signin-label">
+      <label htmlFor="email" className="signin-label">
         Email
       </label>
       <input
         id="email"
         required
         name="email"
-        type="text"
-        value={data.username}
+        type="email"
+        value={values.email || ""}
         onChange={handleChange}
-        className="signin-input"
+        className={`signin-input ${errors.email ? "signin-input--error" : ""}`}
         placeholder="Email"
       />
+      {errors.email && <span className="error-message">{errors.email}</span>}
+
       <label htmlFor="password" className="signin-label">
         Password
       </label>
@@ -69,15 +62,29 @@ const LoginModal = ({
         required
         name="password"
         type="password"
-        value={data.password}
+        minLength="3"
+        value={values.password || ""}
         onChange={handleChange}
-        className="signin-input"
+        className={`signin-input ${
+          errors.password ? "signin-input--error" : ""
+        }`}
         placeholder="Password"
       />
+      {errors.password && (
+        <span className="error-message">{errors.password}</span>
+      )}
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div>
         <div className="action-buttons">
-          <button className="signin-button" type="submit">
-            Sign in
+          <button
+            className={`signin-button ${
+              hasErrors ? "signin-button-disabled" : ""
+            }`}
+            type="submit"
+            disabled={hasErrors}
+          >
+            {isLoading ? "Signing in..." : "Sign in"}
           </button>
           <button
             onClick={handleSignup}

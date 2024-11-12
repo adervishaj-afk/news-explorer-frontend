@@ -29,7 +29,11 @@ const Results = ({
   if (error) {
     return (
       <div className="results">
-        <img src={notFound} className="results-image"></img>
+        <img
+          src={notFound}
+          className="results-image"
+          alt="not found icon"
+        ></img>
         <p>
           <span className="results-not-found-title">
             Sorry, something went wrong during the request.

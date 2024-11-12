@@ -2,17 +2,17 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
-  min-height: 576px;
+  max-height: 576px;
   text-align: left;
   position: relative;
-  border-radius: 20px;
+  overflow: hidden;
 }
 
-/* Image styling */
+/* Image Styling */
 .news-card__image {
   width: 100%;
   min-height: 280px;
@@ -21,75 +21,76 @@
   display: block;
 }
 
-/* Content inside the card */
+/* Content Section */
 .news-card__content {
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  height: auto;
   justify-content: space-between;
+  padding: 15px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-/* Title styling */
+/* Date Styling */
+.news-card__date {
+  font-size: 0.9rem;
+  color: #b6bcbf;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Title Styling */
 .news-card__title {
-  height: auto;
-  flex-wrap: wrap;
-  max-width: auto;
-  font-size: 1.8vw;
+  font-size: 26px;
+  font-weight: 500;
+  color: #1a1b22;
   margin: 5px 0;
-  color: #1a1b22;
-  margin-top: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 400;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  /* white-space: nowrap;        */
-  overflow: hidden;          
-  text-overflow: ellipsis; 
+  height: 110px;
 }
 
-/* Description styling */
+/* Description Styling */
 .news-card__description {
-  height: auto;
-  flex-wrap: wrap;
-  max-width: auto;
-  font-size: 1.1vw;
+  font-size: 16px;
+  color: #4a4a4a;
   margin: 10px 0;
-  color: #1a1b22;
   line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 400;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  /* white-space: nowrap;        */
-  overflow: hidden;          
-  text-overflow: ellipsis; 
 }
 
-/* Source styling */
+/* Source Styling */
 .news-card__source {
-  margin-bottom: auto;
   font-size: 16px;
   color: #b6bcbf;
   font-weight: 700;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
-.news-card__date {
-  max-width: auto;
-  font-size: 1.1rem;
-  color: #b6bcbf;
-  margin-top: 0;
-  margin-bottom: 17px;
-  font-weight: bold;
+/* Bookmark Icon Styling */
+.news-card__bookmark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-image: url("../../assets/bookmark.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
-.news-card__bookmark {
-  max-width: auto;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  left: 85%;
-  top: 2.5%;
-  background-image: url("../../assets/bookmark.svg");
-  border: none;
-  border-radius: 10px;
+.news-card__bookmark:hover {
+  background-image: url("../../assets/active-bookmark.svg");
 }
 
 .news-card__bookmark-saved {

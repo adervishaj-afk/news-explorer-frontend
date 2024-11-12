@@ -12,16 +12,20 @@ const SearchForm = ({ handleSearch }) => {
       setError("Please enter a keyword");
     } else {
       setError("");
-      handleSearch(query);  // Pass the search query to App.jsx
-      setQuery("");  //Clear the search field after submission
+      handleSearch(query)
+        .then(() => {
+          setQuery("");
+        })
+        .catch(() => {
+          setError("An error occurred. Please try again.");
+        });
     }
   };
 
-  // Clear error message when user types in the search input
   const handleInputChange = (e) => {
     setQuery(e.target.value);
     if (error) {
-      setError("");  // Clear error when the user starts typing again
+      setError("");  
     }
   };
 

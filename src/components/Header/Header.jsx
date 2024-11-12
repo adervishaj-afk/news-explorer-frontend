@@ -3,12 +3,13 @@ import "./Header.css";
 import { Link, useLocation } from "react-router-dom";
 import UnionWhite from "../../assets/Union-white.png";
 import UnionBlack from "../../assets/Union-black.png";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
+const Header = ({ handleSignIn, handleLogout, isLoggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // console.log(userData.username);
+  const { userData } = useContext(CurrentUserContext);
 
   const location = useLocation();
 
@@ -125,8 +126,8 @@ const Header = ({ handleSignIn, handleLogout, isLoggedIn, userData }) => {
               <button
                 className={`header__button-logout ${
                   location.pathname === "/profile"
-                    ? "header__button-logout"
-                    : ""
+                    ? "header__button-logout-black"
+                    : "header__button-logout-white"
                 }`}
                 onClick={handleLogout}
               >

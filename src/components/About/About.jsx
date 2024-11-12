@@ -6,7 +6,6 @@ const About = () => {
     <section className="about">
       <div className="about__image-container">
         <img
-          // src="../../assets/barca-wallpaper.jpg"
           alt="About"
           className="about__image"
         />

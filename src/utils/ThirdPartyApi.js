@@ -24,8 +24,6 @@ export const getNews = async (query) => {
 
     const data = await response.json();
 
-    console.log("Fetched articles from API:", data.articles);
-
     // Map through the articles to extract the necessary fields
     const articles = data.articles.map((article) => ({
       sourceName: article.source.name,

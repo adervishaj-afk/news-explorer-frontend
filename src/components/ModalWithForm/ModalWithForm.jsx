@@ -1,5 +1,6 @@
 import "./ModalWithForm.css";
 import React from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 function ModalWithForm({
   children,
@@ -10,6 +11,8 @@ function ModalWithForm({
   handleOutsideClick,
 }) {
 
+
+  
   return (
     <div
       className={`modal ${isOpen && "modal_opened"}`}
@@ -24,9 +27,6 @@ function ModalWithForm({
         ></button>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          {/* <button type="submit" className="modal__submit">
-            {buttonText}
-          </button> */}
         </form>
       </div>
     </div>

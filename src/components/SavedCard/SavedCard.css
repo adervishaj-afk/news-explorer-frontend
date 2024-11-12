@@ -2,66 +2,59 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   width: 100%;
-  height: 576px;
   max-width: 400px;
+  max-height: 576px;
   text-align: left;
   position: relative;
-  border-radius: 20px;
+  overflow: hidden;
 }
 
 .saved-card__image {
   width: 100%;
   min-height: 280px;
-  object-fit: fill;
+  object-fit: cover;
   border-radius: 20px 20px 0 0;
+  display: block;
 }
 
 .saved-card__content {
-  padding: 15px;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  max-height: 304px;
+  justify-content: space-between;
+  padding: 15px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .saved-card__title {
-  height: auto;
-  flex-wrap: wrap;
-  max-width: auto;
-  font-size: 1.8vw;
-  margin: 5px 0;
+  font-size: 26px;
+  font-weight: 500;
   color: #1a1b22;
-  margin-top: 0;
+  margin: 5px 0;
+  line-height: 1.4;
+  height: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 400;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  overflow: hidden;          
-  text-overflow: ellipsis; 
 }
 
 .saved-card__description {
-  height: auto;
-  flex-wrap: wrap;
-  max-width: auto;
-  font-size: 1.1vw;
+  font-size: 16px;
+  color: #4a4a4a;
   margin: 10px 0;
-  color: #1a1b22;
   line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 400;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-    overflow: hidden;          
-  text-overflow: ellipsis; 
 }
 
 .saved-card__source {
-  margin-bottom: 0;
-  /* padding-left: 18px; */
-  max-width: auto;
-  /* margin-bottom: 15px; */
-  padding-top: auto;
   font-size: 16px;
   color: #b6bcbf;
   font-weight: 700;
@@ -69,12 +62,27 @@
 }
 
 .saved-card__date {
-  max-width: auto;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: #b6bcbf;
-  margin-top: 0;
-  margin-bottom: 17px;
+  margin-bottom: 10px;
   font-weight: bold;
+}
+
+.saved-card__category {
+  padding: 8px 22px;
+  border-radius: 10px;
+  background-color: white;
+  position: absolute;
+  top: 1%;
+  right: 75%;
+  min-width: 30px;
+  width: auto;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  color: black;
 }
 
 .saved-card__remove-button {
@@ -100,4 +108,12 @@
   height: 40px;
   width: 40px;
   background-color: white;
+  cursor: pointer;
 }
+
+/* .saved-card__remove-button-notice {
+  background-color: white;
+  width: 30px;
+  height: 30px;
+
+} */

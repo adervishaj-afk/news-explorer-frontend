@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  /* flex-wrap: wrap; */
   padding: 0 10px;
 }
 
@@ -121,6 +120,13 @@
   width: auto;
   margin-top: 27px;
   text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.header__button-saved-black:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .header__button-logout {
@@ -134,9 +140,16 @@
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
   margin: 0 10px 0;
-  background-color: transparent; /* Set background color for the oval */
+  background-color: transparent; 
   border-radius: 50px; /* This makes it oval */
-  border: 1px solid grey;
+}
+
+.header__button-logout-white {
+  border: 1px solid white;
+}
+
+.header__button-logout-black {
+  border: 1px solid black;
 }
 
 .logout {
@@ -194,7 +207,6 @@
   font-size: 18px;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   font-weight: 500;
-  /* border-bottom: 2px solid #1A1B22; */
   padding-bottom: 8px;
   width: auto;
   margin-top: 30px;
@@ -202,7 +214,7 @@
 }
 
 .header__button-logout-signin {
-  background-color: transparent; /* Set background color for the oval */
+  background-color: transparent; 
   border-radius: 50px; /* This makes it oval */
   border: 1px solid grey;
 }

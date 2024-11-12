@@ -38,6 +38,23 @@
   opacity: 0.8;
 }
 
+.signin-button-disabled {
+  background-color: lightgray;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  max-width: 360px;
+  width: 100%;
+  height: 64px;
+  font-size: 24px;
+  margin-top: 20px;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+
 .action-buttons {
   display: flex;
   flex-direction: column;
@@ -67,6 +84,15 @@
 
 .mobile__dropdown {
   display: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  margin-top: -10px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {
@@ -109,21 +135,10 @@
     display: flex;
     justify-content: center;
   }
-  .signin-label {
-    /* display: none;
-    visibility: hidden; */
-  }
-
-  .signin-input {
-    /* display: none; */
-  }
 
   .signin-button {
     display: block;
     background-color: #e6e8eb;
-    color: #B6BCBF;
-
+    color: #b6bcbf;
   }
-
-  
 }
